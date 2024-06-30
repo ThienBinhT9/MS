@@ -10,7 +10,7 @@ function NotFound() {
   const navigate = useNavigate();
   return (
     <div className="wrapper-notfound">
-      <h2 className="notfound-title">oops! page not found</h2>
+      <h2 className="notfound-title">Oops! page not found</h2>
       <h3 className="notfound-description">
         Your page is currently under maintenance add will guide you back to the
         home page.

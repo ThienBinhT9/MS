@@ -18,7 +18,15 @@ function RouteApp() {
         const Comp = route.element;
 
         return (
-          <Route path={route.path} element={<Layout><Comp /></Layout>}>
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <Layout>
+                <Comp />
+              </Layout>
+            }
+          >
             {route.children && renderRouter(route.children)}
           </Route>
         );
@@ -33,12 +41,17 @@ function RouteApp() {
         {renderRouter(publicRoute)}
 
         {/* private route */}
-        {/* <Route element={<ProtectRoute />}>
-        </Route> */}
-        {renderRouter(privateRoute)}
+        <Route element={<ProtectRoute />}>{renderRouter(privateRoute)}</Route>
 
         {/* not found */}
-        <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
+        <Route
+          path="*"
+          element={
+            <MainLayout>
+              <NotFound />
+            </MainLayout>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

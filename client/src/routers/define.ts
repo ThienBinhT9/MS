@@ -21,7 +21,7 @@ export const publicRoute: IRoute[] = [
   { path: "/auth/sign-in", element: SignIn, layout: OnlyContentLayout },
   { path: "/auth/sign-up", element: SignUp, layout: OnlyContentLayout },
   {
-    path: "/auth/forgot-pasword",
+    path: "/auth/forgot-password",
     element: ForgotPassword,
     layout: OnlyContentLayout,
   },

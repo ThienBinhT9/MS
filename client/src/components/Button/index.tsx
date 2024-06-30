@@ -14,7 +14,7 @@ interface Props extends ButtonProps {
 function ButtonCustom(props: Props) {
   const { to, children, className, primary, text, ...passProps } = props;
   return to ? (
-    <NavLink to={to} style={{ display: "block" }}>
+    <NavLink to={to}>
       <Button
         className={`wrapper-button ${className} ${primary && "primary"} ${
           text && "text"
