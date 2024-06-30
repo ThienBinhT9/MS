@@ -1,0 +1,27 @@
+.wrapper-notfound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: calc(100vh - var(--height-header));
+  gap: 12px;
+  padding: 0 12px;
+
+  .notfound-title {
+    font-size: 35px;
+    font-weight: 500;
+
+    @media (max-width: 768px) {
+      font-size: 30px;
+    }
+  }
+
+  .notfound-description {
+    font-size: 16px;
+    color: var(--text-color-G500);
+    font-weight: 400;
+  }
+
+  .notfound-img {
+  }
+}
