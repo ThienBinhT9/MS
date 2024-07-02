@@ -9,8 +9,15 @@ const initialState: IAuthState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    signIn: (state, action) => {
+      state.token = action.payload;
+    },
+  },
 });
 
 export default authSlice.reducer;
-export const {} = authSlice.actions;
+export const { setLoading } = authSlice.actions;
