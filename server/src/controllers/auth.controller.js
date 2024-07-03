@@ -16,6 +16,14 @@ class AuthController {
       return res.status(500).json(error.message);
     }
   }
+
+  async signOut(req, res) {
+    try {
+      return res.status(200).json(await AuthService.SignOut());
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
 }
 
 module.exports = new AuthController();

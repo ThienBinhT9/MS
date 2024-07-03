@@ -3,8 +3,11 @@ import * as Yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./Authen.scss";
+import { RootState } from "../../redux/store.ts";
+import { signUp } from "../../services/auth-service.ts";
 import { IParamsRegister } from "../../interfaces/auth-interface.ts";
 import {
   TEXT_MAX,
@@ -17,7 +20,10 @@ import Input from "../../components/Input/index.tsx";
 import Button from "../../components/Button/index.tsx";
 
 function SignUp() {
+  const { loading } = useSelector((state: RootState) => state.auth);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const schemaForm = Yup.object().shape({
     email: Yup.string()
@@ -45,8 +51,7 @@ function SignUp() {
   });
 
   const handleSignUp = (values: IParamsRegister) => {
-    const { email, password, confirmPassword } = values;
-    console.log({ email, password, confirmPassword });
+    signUp(values, navigate, dispatch);
   };
 
   return (
@@ -112,6 +117,8 @@ function SignUp() {
           </Button>
           <Button
             primary
+            loading={loading}
+            disabled={loading}
             className="auth-submit"
             onClick={handleSubmit(handleSignUp)}
           >

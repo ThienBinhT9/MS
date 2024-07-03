@@ -75,6 +75,13 @@ class AuthService {
       return error.message;
     }
   }
+
+  async SignOut() {
+    try {
+    } catch (error) {
+      return error.message;
+    }
+  }
 }
 
 module.exports = new AuthService();

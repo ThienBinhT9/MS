@@ -14,6 +14,9 @@ export interface IParamsForgotPassword {
 }
 
 export interface IAuthState {
-  token: string;
+  token: {
+    access_token: string;
+    refresh_token: string;
+  };
   loading: boolean;
 }

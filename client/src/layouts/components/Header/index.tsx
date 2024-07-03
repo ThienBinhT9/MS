@@ -14,6 +14,7 @@ import { RootState } from "../../../redux/store";
 import logo from "../../../assets/images/logo.png";
 
 import Button from "../../../components/Button/index.tsx";
+import ThreeDotLoader from "../../../components/Loading/ThreeDot.tsx";
 
 const items: MenuProps["items"] = [
   {
@@ -32,7 +33,7 @@ const items: MenuProps["items"] = [
 ];
 
 function Header() {
-  const { token } = useSelector((state: RootState) => state.auth);
+  const { token, loading } = useSelector((state: RootState) => state.auth);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -46,11 +47,12 @@ function Header() {
 
   return (
     <div className="wrapper-header">
+      {loading && <ThreeDotLoader />}
       <div className="header-inner">
         <NavLink to="/" className="header-logo">
           <img src={logo} alt="logo" />
         </NavLink>
-        {token ? (
+        {token.access_token ? (
           <>
             <div className="header-nav">
               <Dropdown

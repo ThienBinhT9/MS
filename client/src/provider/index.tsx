@@ -1,5 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { PersistGate } from "redux-persist/integration/react";
 

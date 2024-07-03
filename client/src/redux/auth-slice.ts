@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IAuthState } from "../interfaces/auth-interface";
 
 const initialState: IAuthState = {
-  token: "",
+  token: {
+    access_token: "",
+    refresh_token: "",
+  },
   loading: false,
 };
 
@@ -13,11 +16,14 @@ const authSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
-    signIn: (state, action) => {
+    setSignIn: (state, action) => {
+      state.token = action.payload;
+    },
+    setSignUp: (state, action) => {
       state.token = action.payload;
     },
   },
 });
 
 export default authSlice.reducer;
-export const { setLoading } = authSlice.actions;
+export const { setLoading, setSignIn, setSignUp } = authSlice.actions;

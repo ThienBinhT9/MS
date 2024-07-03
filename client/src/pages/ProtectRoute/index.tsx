@@ -9,7 +9,7 @@ function ProtectRoute() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) navigate("/auth/sign-in");
+    if (!token.access_token) navigate("/auth/sign-in");
   }, [token, navigate]);
 
   return <Outlet />;
