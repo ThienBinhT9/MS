@@ -19,7 +19,23 @@ class AuthController {
 
   async signOut(req, res) {
     try {
-      return res.status(200).json(await AuthService.SignOut());
+      const { keyUserId } = req.key;
+      return res
+        .status(200)
+        .json(await AuthService.SignOut({ userId: keyUserId }));
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
+
+  async refreshToken(req, res) {
+    try {
+      return res.status(200).json(
+        await AuthService.RefreshToken({
+          key: req.key,
+          refresh_token: req.refresh_token,
+        })
+      );
     } catch (error) {
       return res.status(500).json(error.message);
     }

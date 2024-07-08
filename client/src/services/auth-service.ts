@@ -42,7 +42,9 @@ export const signUp = async (
     const result = await axios.post(`${HOST}/auth/sign-up`, body);
     if (result.data.code === 201) {
       const { access_token, refresh_token, ...dataUser } = result.data.metadata;
-      dispatch(setSignUp({ access_token, refresh_token }));
+      dispatch(
+        setSignUp({ access_token, refresh_token, userId: dataUser._id })
+      );
       dispatch(setCurrentUser(dataUser));
       return navigate("/");
     }
@@ -55,21 +57,36 @@ export const signUp = async (
 };
 
 export const signOut = async (
+  access_token: string,
+  userId: string,
   navigate: NavigateFunction,
   dispatch: Dispatch<UnknownAction>
 ) => {
   try {
     setLoading(true);
-    const result = await axios.post(`${HOST}/auth/sign-out`);
+    const result = await axios.post(`${HOST}/auth/sign-out`, {
+      headers: {
+        access_token,
+        client_id: userId,
+      },
+    });
     if (result.data.code === 200) {
       dispatch(setSignIn({}));
       dispatch(setCurrentUser(null));
       return navigate("/auth/sign-in");
     }
     toast(result.data.message, { type: "error" });
+    return result.data;
   } catch (error) {
     toast(error.response.data.message, { type: "error" });
   } finally {
     setLoading(false);
+  }
+};
+
+export const refreshToken = async () => {
+  try {
+  } catch (error) {
+    return error.message;
   }
 };

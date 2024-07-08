@@ -1,11 +1,15 @@
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
-const { findUserByEmail, deleteUserById } = require("../models/repo/user.repo");
+const {
+  findUserByEmail,
+  deleteUserById,
+  findUserById,
+} = require("../models/repo/user.repo");
 const { createTokens, createKey } = require("../utils");
 
 const User = require("../models/user.model");
-
+const Key = require("../models/key.model");
 class AuthService {
   async signUp({ email, password }) {
     try {
@@ -23,7 +27,7 @@ class AuthService {
         privateKeyEncoding: { type: "pkcs1", format: "pem" },
       });
 
-      const tokens = createTokens(privateKey, { id: new_user._id });
+      const tokens = createTokens(privateKey, { userId: new_user._id });
       const key = await createKey(
         publicKey,
         privateKey,
@@ -60,7 +64,7 @@ class AuthService {
         privateKeyEncoding: { type: "pkcs1", format: "pem" },
       });
 
-      const tokens = createTokens(privateKey, { id: findUserByEmail._id });
+      const tokens = createTokens(privateKey, { userId: findUserEmail._id });
       const key = createKey(
         publicKey,
         privateKey,
@@ -76,8 +80,46 @@ class AuthService {
     }
   }
 
-  async SignOut() {
+  async SignOut({ userId }) {
     try {
+      const foundUser = await findUserById(userId);
+      if (!foundUser) return { code: 401, message: "Unauthorized! 2" };
+
+      await Key.findOneAndDelete({ keyUserId: userId });
+      return { code: 200, metadata: "Đăng xuất thành công!" };
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  async RefreshToken({ refresh_token, key }) {
+    try {
+      const { keyUserId, privateKey, refreshTokenUsed, _id } = key;
+      if (refreshTokenUsed.includes(refresh_token)) {
+        await Key.findByIdAndDelete(_id);
+        return { code: 401, message: "Please! Re-login" };
+      }
+
+      if (refresh_token !== key.refreshToken)
+        return { code: 401, message: "Unauthorized! 2" };
+
+      const found_user = await findUserById(keyUserId);
+      if (!found_user) return { code: 401, message: "Not you!" };
+
+      const tokens = createTokens(privateKey, { userId: keyUserId });
+      await Key.updateOne(
+        { keyUserId },
+        {
+          $addToSet: {
+            refreshTokenUsed: refresh_token,
+          },
+          $set: {
+            refreshToken: refresh_token,
+          },
+        }
+      );
+
+      return { code: 200, metadata: tokens };
     } catch (error) {
       return error.message;
     }

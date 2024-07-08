@@ -5,6 +5,7 @@ const initialState: IAuthState = {
   token: {
     access_token: "",
     refresh_token: "",
+    userId: "",
   },
   loading: false,
 };

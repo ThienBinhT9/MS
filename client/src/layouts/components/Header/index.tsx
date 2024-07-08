@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Dropdown, MenuProps, Drawer } from "antd";
 import {
   UserOutlined,
@@ -9,9 +9,10 @@ import {
 } from "@ant-design/icons";
 
 import "./Header.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { RootState } from "../../../redux/store";
 import logo from "../../../assets/images/logo.png";
+import { signOut } from "../../../services/auth-service.ts";
 
 import Button from "../../../components/Button/index.tsx";
 import ThreeDotLoader from "../../../components/Loading/ThreeDot.tsx";
@@ -34,6 +35,8 @@ const items: MenuProps["items"] = [
 
 function Header() {
   const { token, loading } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -43,6 +46,11 @@ function Header() {
 
   const onClose = () => {
     setOpenDrawer(false);
+  };
+
+  const handleSignOut = async () => {
+    await signOut(token.access_token, token.userId, navigate, dispatch);
+    onClose();
   };
 
   return (
@@ -81,7 +89,7 @@ function Header() {
                     text
                     to="/auth/sign-in"
                     icon={<LogoutOutlined />}
-                    onClick={onClose}
+                    onClick={handleSignOut}
                   >
                     Đăng xuất
                   </Button>
