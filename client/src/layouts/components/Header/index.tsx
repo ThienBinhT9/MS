@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Dropdown, MenuProps, Drawer } from "antd";
+import { Dropdown, MenuProps, Drawer, Menu } from "antd";
 import {
   UserOutlined,
   LogoutOutlined,
@@ -17,21 +17,7 @@ import { signOut } from "../../../services/auth-service.ts";
 import Button from "../../../components/Button/index.tsx";
 import ThreeDotLoader from "../../../components/Loading/ThreeDot.tsx";
 
-const items: MenuProps["items"] = [
-  {
-    label: <NavLink to="/profile">Trang cá nhân</NavLink>,
-    key: "0",
-    icon: <UserOutlined />,
-  },
-  {
-    type: "divider",
-  },
-  {
-    label: <NavLink to="/auth/sign-in">Đăng xuất</NavLink>,
-    key: "3",
-    icon: <LogoutOutlined />,
-  },
-];
+import { jwtDecode } from "jwt-decode";
 
 function Header() {
   const { token, loading } = useSelector((state: RootState) => state.auth);
@@ -52,6 +38,23 @@ function Header() {
     await signOut(token.access_token, token.userId, navigate, dispatch);
     onClose();
   };
+
+  const items: MenuProps["items"] = [
+    {
+      label: <NavLink to="/profile">Trang cá nhân</NavLink>,
+      key: "0",
+      icon: <UserOutlined />,
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: <div>Đăng xuất</div>,
+      key: "3",
+      icon: <LogoutOutlined />,
+      onClick: handleSignOut,
+    },
+  ];
 
   return (
     <div className="wrapper-header">

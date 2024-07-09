@@ -19,8 +19,9 @@ export const signIn = async (
     dispatch(setLoading(true));
     const result = await axios.post(`${HOST}/auth/sign-in`, body);
     if (result.data.code === 200) {
-      const { access_token, refresh_token, ...userData } = result.data.metadata;
-      dispatch(setSignIn({ access_token, refresh_token }));
+      const { access_token, refresh_token, _id, ...userData } =
+        result.data.metadata;
+      dispatch(setSignIn({ access_token, refresh_token, userId: _id }));
       dispatch(setCurrentUser(userData));
       return navigate("/");
     }
@@ -41,10 +42,9 @@ export const signUp = async (
     dispatch(setLoading(true));
     const result = await axios.post(`${HOST}/auth/sign-up`, body);
     if (result.data.code === 201) {
-      const { access_token, refresh_token, ...dataUser } = result.data.metadata;
-      dispatch(
-        setSignUp({ access_token, refresh_token, userId: dataUser._id })
-      );
+      const { access_token, refresh_token, _id, ...dataUser } =
+        result.data.metadata;
+      dispatch(setSignUp({ access_token, refresh_token, userId: _id }));
       dispatch(setCurrentUser(dataUser));
       return navigate("/");
     }
@@ -63,8 +63,8 @@ export const signOut = async (
   dispatch: Dispatch<UnknownAction>
 ) => {
   try {
-    setLoading(true);
-    const result = await axios.post(`${HOST}/auth/sign-out`, {
+    dispatch(setLoading(true));
+    const result = await axios.post(`${HOST}/auth/sign-out`, userId, {
       headers: {
         access_token,
         client_id: userId,
@@ -80,12 +80,19 @@ export const signOut = async (
   } catch (error) {
     toast(error.response.data.message, { type: "error" });
   } finally {
-    setLoading(false);
+    dispatch(setLoading(false));
   }
 };
 
-export const refreshToken = async () => {
+export const refreshToken = async (refresh_token: string, userId: string) => {
   try {
+    const result = await axios.post(`${HOST}/auth/refresh-token`, userId, {
+      headers: {
+        refresh_token,
+        client_id: userId,
+      },
+    });
+    return result.data;
   } catch (error) {
     return error.message;
   }
