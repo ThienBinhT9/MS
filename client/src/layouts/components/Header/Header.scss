@@ -50,6 +50,11 @@
         overflow: hidden;
         cursor: pointer;
       }
+
+      .header-nav-item {
+        font-size: 20px;
+        cursor: pointer;
+      }
     }
 
     .header-nav-mobile {
@@ -72,4 +77,10 @@
 
 .header-nav-item.active {
   font-weight: 600;
+}
+
+.drawer-title-text {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 35px;
 }

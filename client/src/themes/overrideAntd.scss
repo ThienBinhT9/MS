@@ -32,6 +32,10 @@
   background: #f3f3f3;
 }
 
+:where(.css-dev-only-do-not-override-m4timi).ant-drawer .ant-drawer-header {
+  padding: 24px 16px;
+}
+
 :where(.css-dev-only-do-not-override-m4timi).ant-input-outlined:focus,
 :where(.css-dev-only-do-not-override-m4timi).ant-input-outlined:hover,
 :where(.css-dev-only-do-not-override-m4timi).ant-input-outlined:focus-within {
