@@ -42,3 +42,47 @@
   border-color: var(--primary-color);
   box-shadow: 0 0 0 2px rgba(255, 228, 181, 0.1);
 }
+
+:where(.css-dev-only-do-not-override-m4timi).ant-menu-light
+  .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-m4timi).ant-menu-light
+  > .ant-menu
+  .ant-menu-item-selected {
+  background-color: var(--primary-color-light);
+  border-left: 5px solid var(--primary-color-bold);
+  border-radius: 0;
+  font-weight: 600;
+
+  span {
+    color: var(--primary-color-bold);
+  }
+
+  svg {
+    path {
+      color: var(--primary-color-bold);
+      font-weight: 600;
+    }
+  }
+}
+
+:where(.css-dev-only-do-not-override-m4timi).ant-menu-light:not(
+    .ant-menu-horizontal
+  )
+  .ant-menu-item:not(.ant-menu-item-selected):active,
+:where(.css-dev-only-do-not-override-m4timi).ant-menu-light
+  > .ant-menu:not(.ant-menu-horizontal)
+  .ant-menu-item:not(.ant-menu-item-selected):active {
+  background-color: rgba(0, 0, 0, 0.06);
+  border-color: transparent;
+}
+
+:where(.css-dev-only-do-not-override-m4timi).ant-menu-light:not(
+    .ant-menu-horizontal
+  )
+  .ant-menu-submenu-title:active,
+:where(.css-dev-only-do-not-override-m4timi).ant-menu-light
+  > .ant-menu:not(.ant-menu-horizontal)
+  .ant-menu-submenu-title:active {
+  background-color: rgba(0, 0, 0, 0.06);
+  border-color: transparent;
+}

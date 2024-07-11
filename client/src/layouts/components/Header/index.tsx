@@ -25,7 +25,8 @@ import ThreeDotLoader from "../../../components/Loading/ThreeDot.tsx";
 
 function Header() {
   const { token, loading } = useSelector((state: RootState) => state.auth);
-  const isSmallScreen = useMediaQuery({ maxWidth: 768 });
+  const isMobileScreen = useMediaQuery({ maxWidth: 768 });
+  const isTabletScreen = useMediaQuery({ maxWidth: 1024 });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -61,8 +62,8 @@ function Header() {
   ];
 
   useEffect(() => {
-    isSmallScreen ? setOpenDrawerSearch(false) : setOpenDrawerMenu(false);
-  }, [isSmallScreen]);
+    isMobileScreen ? setOpenDrawerSearch(false) : setOpenDrawerMenu(false);
+  }, [isMobileScreen]);
 
   return (
     <div className="wrapper-header">
@@ -82,6 +83,7 @@ function Header() {
                 <div ref={drawerRef}>
                   <Drawer
                     mask={false}
+                    width={isTabletScreen ? "42%" : "35%"}
                     placement="right"
                     closable={false}
                     onClose={onClose}

@@ -11,7 +11,8 @@ import About from "../pages/Profile/components/About/index.tsx";
 import Friend from "../pages/Profile/components/Friend/index.tsx";
 
 //layouts
-import MainLayout from "../layouts/Main/index.tsx";
+import HeaderLayout from "../layouts/HeaderLayout/index.tsx";
+import MainLayout from "../layouts/MainLayout/index.tsx";
 import OnlyContentLayout from "../layouts/OnlyContent/index.tsx";
 
 //interfaces
