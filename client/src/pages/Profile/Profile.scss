@@ -1,21 +1,57 @@
 .wrapper-profile {
-  margin: 0 auto;
-  width: 60%;
-  padding-top: 24px;
-
   .profile-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    background-color: white;
+    padding-top: 24px;
+    box-shadow: var(--box-shadow);
+    border-bottom: 1px solid var(--border-color);
 
-    .profile-author {
-      padding-top: 12px;
+    .profile-header-inner {
+      width: 1150px;
+      margin: 0 auto;
 
-      .profile-name {
-        font-size: 25px;
-        font-weight: 600;
-        margin-bottom: 4px;
+      @media (max-width: 1150px) {
+        width: 98%;
       }
+
+      .profile-header-info {
+        gap: 12px;
+        display: flex;
+        align-items: flex-start;
+
+        .profile-author {
+          padding-top: 12px;
+
+          .profile-name {
+            font-size: 25px;
+            font-weight: 600;
+            margin-bottom: 4px;
+          }
+        }
+      }
+    }
+    .profile-header-nav-item {
+      font-size: 16px;
+    }
+
+    .ant-menu-item-selected {
+      font-weight: 600;
+    }
+
+    .ant-menu-item-selected::after {
+      border-bottom: 3px solid var(--primary-color);
+    }
+
+    .ant-menu-light.ant-menu-horizontal > .ant-menu-item-active::after {
+      border-bottom: 3px solid var(--primary-color);
+    }
+  }
+
+  .profile-content {
+    width: 1150px;
+    margin: 18px auto 0;
+
+    @media (max-width: 1150px) {
+      width: 98%;
     }
   }
 }
