@@ -18,7 +18,7 @@ function ButtonCustom(props: Props) {
       <Button
         className={`wrapper-button ${className} ${primary && "primary"} ${
           text && "text"
-        }`}
+        } ${className}`}
         {...passProps}
       >
         {children}
@@ -26,9 +26,9 @@ function ButtonCustom(props: Props) {
     </NavLink>
   ) : (
     <Button
-      className={`wrapper-button ${className} ${primary && "primary"} ${
+      className={`wrapper-button ${primary && "primary"} ${
         text && "text"
-      }`}
+      } ${className}`}
       {...passProps}
     >
       {children}

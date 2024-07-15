@@ -5,7 +5,7 @@ import { privateRoute, publicRoute } from "./define.ts";
 import { IRoute } from "../interfaces/common-interface.ts";
 
 import NotFound from "../pages/NotFound/index.tsx";
-import HeaderLayout from "../layouts/HeaderLayout/index.tsx";
+import MainLayout from "../layouts/MainLayout/index.tsx";
 import ProtectRoute from "../pages/ProtectRoute/index.tsx";
 
 function RouteApp() {
@@ -47,9 +47,9 @@ function RouteApp() {
         <Route
           path="*"
           element={
-            <HeaderLayout>
+            <MainLayout>
               <NotFound />
-            </HeaderLayout>
+            </MainLayout>
           }
         />
       </Routes>

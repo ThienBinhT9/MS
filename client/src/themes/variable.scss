@@ -2,9 +2,9 @@
   --main-color: rgb(0, 145, 255);
   --text-color: #11181c;
   --text-color-G500: #555555;
-  --primary-color: #ffe4b5;
-  --primary-color-bold: #eba05f;
-  --primary-color-light: rgba(255, 228, 181, 0.4);
+  --primary-color: rgb(119, 136, 153);
+  --primary-color-bold: rgb(112, 128, 144);
+  --primary-color-light: rgb(220, 220, 220);
 
   --bg-body: rgb(248, 249, 250);
   --bg-white: #fff;
@@ -13,9 +13,13 @@
 
   --height-header: 56px;
   --height-nav: 48px;
-  --width-inner-header: 60%;
-  --width-inner-header-tablet: 85%;
-  --width-inner-header-mobile: 95%;
+  --width-inner: 60%;
+  --width-inner-tablet: 85%;
+  --width-inner-mobile: 95%;
+
+  --width-inner: 60%;
+  --width-inner-tablet: 85%;
+  --width-inner-mobile: 95%;
 
   --box-shadow: 0 0 3px #eceef0;
   --font-family: "Montserrat", sans-serif;

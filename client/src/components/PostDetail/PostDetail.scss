@@ -1,0 +1,92 @@
+.wrapper-post-detail {
+  margin-bottom: 37px;
+  margin: 0 -24px 37px;
+  height: 80vh;
+  overflow-x: hidden;
+  overflow-y: overlay;
+}
+
+.post-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  padding: 0 24px;
+
+  .post-detail-header-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    .post-detail-name {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .post-detail-createdAt {
+      font-size: 13px;
+    }
+  }
+}
+
+.post-detail-title {
+  font-size: 14px;
+  margin-bottom: 12px;
+  padding: 0 24px;
+}
+
+.post-detail-images {
+  height: 500px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  background-color: black;
+
+  img {
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.post-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+}
+
+.post-comment-input {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--box-shadow);
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-white);
+}
+
+.like-active {
+  animation: scale 0.2s linear;
+}
+
+.post-detail-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+@keyframes scale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+}

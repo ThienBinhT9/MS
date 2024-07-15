@@ -113,7 +113,6 @@ function Header() {
                 trigger={["click"]}
                 placement="bottomRight"
                 arrow={{ pointAtCenter: true }}
-                className="header-dropdown"
               >
                 <Badge dot size="small">
                   <MessageOutlined className="header-nav-item" />
@@ -124,7 +123,6 @@ function Header() {
                 trigger={["click"]}
                 arrow={{ pointAtCenter: true }}
                 placement="bottomRight"
-                className="header-dropdown"
               >
                 <Badge dot size="small">
                   <BellOutlined className="header-nav-item" />
@@ -135,7 +133,6 @@ function Header() {
                 trigger={["click"]}
                 placement="bottomRight"
                 arrow={{ pointAtCenter: true }}
-                className="header-dropdown"
               >
                 <div className="header-nav-item--more">
                   <img

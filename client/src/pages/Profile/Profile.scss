@@ -1,0 +1,21 @@
+.wrapper-profile {
+  margin: 0 auto;
+  width: 60%;
+  padding-top: 24px;
+
+  .profile-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    .profile-author {
+      padding-top: 12px;
+
+      .profile-name {
+        font-size: 25px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+    }
+  }
+}
