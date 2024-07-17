@@ -1,0 +1,15 @@
+.wrapper-bar-user {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+
+  .bar-user-name {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .bar-user-mutual-friends {
+    font-size: 13px;
+  }
+}

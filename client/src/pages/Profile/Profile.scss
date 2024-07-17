@@ -33,6 +33,10 @@
       font-size: 16px;
     }
 
+    .profile-header-nav-item--more {
+      margin-left: auto;
+    }
+
     .ant-menu-item-selected {
       font-weight: 600;
     }
@@ -42,6 +46,14 @@
     }
 
     .ant-menu-light.ant-menu-horizontal > .ant-menu-item-active::after {
+      border-bottom: 3px solid var(--primary-color);
+    }
+
+    .ant-menu-light.ant-menu-horizontal > .ant-menu-submenu-open::after {
+      border-bottom: 3px solid var(--primary-color);
+    }
+
+    .ant-menu-light.ant-menu-horizontal > .ant-menu-submenu-active::after {
       border-bottom: 3px solid var(--primary-color);
     }
   }

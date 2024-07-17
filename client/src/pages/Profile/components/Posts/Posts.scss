@@ -16,11 +16,62 @@
       flex-direction: column;
       align-items: center;
       gap: 18px;
+
+      .posts-introduce {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .add-biography {
+          border: none;
+          span {
+            color: white;
+          }
+        }
+
+        .posts-introduce-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          svg {
+            path {
+              opacity: 0.7;
+            }
+          }
+        }
+      }
+
+      .posts-images {
+        border-radius: 8px;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 4px;
+
+        .ant-image {
+          img {
+            width: 100%;
+            height: 128.67px;
+            object-fit: cover;
+          }
+        }
+      }
+
+      .posts-friends {
+        .post-friends-content {
+          margin: 12px 0;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+      }
     }
   }
 
   .posts-right {
     flex: 1;
+    width: calc(100% - 420px - 18px);
 
     @media (max-width: 980px) {
       width: 70%;
@@ -29,6 +80,10 @@
 
     @media (max-width: 768px) {
       width: 100%;
+    }
+
+    .post-right-list {
+      margin-top: 18px;
     }
   }
 }

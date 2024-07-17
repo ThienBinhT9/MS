@@ -22,6 +22,9 @@ function Options({ show, onClose }) {
         <Button text className="post-options_item post-options_item--danger">
           Bỏ theo dõi
         </Button>
+        <Button text className="post-options_item post-options_item--danger">
+          Thêm vào thùng giác
+        </Button>
         <Button text className="post-options_item">
           Thêm vào mục yêu thích
         </Button>

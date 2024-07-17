@@ -1,7 +1,7 @@
-import React, { memo, useCallback, useState } from "react";
-import { Divider, Drawer } from "antd";
+import { Divider, Drawer, Carousel } from "antd";
 import { useMediaQuery } from "react-responsive";
 import ReadMoreReadLess from "react-read-more-read-less";
+import React, { memo, useCallback, useState } from "react";
 import {
   HeartTwoTone,
   HeartOutlined,
@@ -125,10 +125,29 @@ function PostDetail({ show, like, setLike, onClose }) {
               </ReadMoreReadLess>
             </div>
             <div className="post-detail-images">
-              <img
-                src="https://i.pinimg.com/236x/fd/8a/5e/fd8a5efd453d979902eac08f012bf113.jpg"
-                alt="avatar"
-              />
+              <Carousel
+                arrows
+                draggable
+                infinite={false}
+                className="carousel-content"
+              >
+                <img
+                  src="https://i.pinimg.com/564x/19/c9/d1/19c9d188282c8cea71153f47e48dbf40.jpg"
+                  alt="avatar"
+                />
+                <img
+                  src="https://i.pinimg.com/736x/d2/06/fd/d206fd9cc697671f168b2d1e999ede7c.jpg"
+                  alt="avatar"
+                />
+                <img
+                  src="https://i.pinimg.com/736x/62/26/88/62268860dc4260e1e9a60164f509d0f5.jpg"
+                  alt="avatar"
+                />
+                <img
+                  src="https://i.pinimg.com/236x/fd/8a/5e/fd8a5efd453d979902eac08f012bf113.jpg"
+                  alt="avatar"
+                />
+              </Carousel>
             </div>
             <div className="post-detail-actions">
               {like ? (

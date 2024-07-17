@@ -5,12 +5,24 @@
   box-shadow: var(--box-shadow);
 
   .post-images {
-    height: 500px;
+    height: var(--height-post-image-pc);
+    background-color: black;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+      height: var(--height-post-image-mobile);
+    }
 
     img {
       height: 100%;
       object-fit: cover;
+    }
+
+    .carousel-content {
+      height: var(--height-post-image-pc);
+      @media (max-width: 768px) {
+        height: var(--height-post-image-mobile);
+      }
     }
   }
 

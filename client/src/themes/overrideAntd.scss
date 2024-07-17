@@ -42,3 +42,8 @@
   border-color: var(--primary-color);
   box-shadow: 0 0 0 2px rgba(255, 228, 181, 0.1);
 }
+
+.ant-image-preview-img {
+  width: auto;
+  object-fit: contain;
+}

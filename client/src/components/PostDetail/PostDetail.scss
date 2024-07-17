@@ -37,14 +37,19 @@
 }
 
 .post-detail-images {
-  height: 500px;
+  height: var(--height-detail-post-image);
   margin-bottom: 12px;
   overflow: hidden;
   background-color: black;
 
+  .carousel-content {
+    height: var(--height-detail-post-image);
+  }
+
   img {
-    height: 100%;
+    height: var(--height-detail-post-image);
     object-fit: contain;
+    width: unset;
   }
 }
 

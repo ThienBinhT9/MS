@@ -1,4 +1,4 @@
-import { Divider } from "antd";
+import { Divider, Carousel } from "antd";
 import React, { useCallback, useState } from "react";
 import {
   HeartTwoTone,
@@ -30,10 +30,25 @@ function Post() {
     <>
       <div className="wrapper-post">
         <div className="post-images">
-          <img
-            src="https://i.pinimg.com/564x/19/c9/d1/19c9d188282c8cea71153f47e48dbf40.jpg"
-            alt="avatar"
-          />
+          <Carousel
+            arrows
+            draggable
+            infinite={false}
+            className="carousel-content"
+          >
+            <img
+              src="https://i.pinimg.com/564x/19/c9/d1/19c9d188282c8cea71153f47e48dbf40.jpg"
+              alt="avatar"
+            />
+            <img
+              src="https://i.pinimg.com/736x/d2/06/fd/d206fd9cc697671f168b2d1e999ede7c.jpg"
+              alt="avatar"
+            />
+            <img
+              src="https://i.pinimg.com/736x/62/26/88/62268860dc4260e1e9a60164f509d0f5.jpg"
+              alt="avatar"
+            />
+          </Carousel>
         </div>
         <div className="post-info">
           <div className="post-author">
@@ -88,7 +103,12 @@ function Post() {
           </div>
           <div className="post-interact">
             <p className="post-quantity-like">200 Lượt thích</p>
-            <p className="post-quantity-comment">35 Bình luận</p>
+            <p
+              className="post-quantity-comment"
+              onClick={() => setShowComment(true)}
+            >
+              35 Bình luận
+            </p>
           </div>
         </div>
       </div>
