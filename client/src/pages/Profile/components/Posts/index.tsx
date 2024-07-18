@@ -1,10 +1,11 @@
-import React from "react";
-import { Image } from "antd";
+import React, { useState } from "react";
+import { Collapse, CollapseProps, Image, Input } from "antd";
 import StickyBox from "react-sticky-box";
 import {
   ReadFilled,
   HomeFilled,
   HeartFilled,
+  EditTwoTone,
   InstagramOutlined,
 } from "@ant-design/icons";
 
@@ -12,11 +13,43 @@ import "./Posts.scss";
 
 import Post from "../../../../components/Post/index.tsx";
 import Think from "../../../../components/Think/index.tsx";
+import Modal from "../../../../components/Modal/index.tsx";
 import Button from "../../../../components/Button/index.tsx";
 import BarUser from "../../../../components/BarUser/index.tsx";
 import SectionWrapper from "../../../../components/SectionWrapper/index.tsx";
 
+const items: CollapseProps["items"] = [
+  {
+    key: "1",
+    label: (
+      <p style={{ color: "white", fontWeight: 500, fontSize: 15 }}>
+        Thêm tiểu sử
+      </p>
+    ),
+    children: (
+      <div>
+        <Input.TextArea
+          rows={3}
+          placeholder="Mô tả về bạn"
+          style={{
+            border: "none",
+            borderRadius: 0,
+            marginBottom: 12,
+            borderBottom: "1px solid rgb(119, 136, 153)",
+          }}
+        />
+        <div style={{ display: "flex", justifyContent: "flex-end", gap: 12 }}>
+          <Button>Hủy</Button>
+          <Button>Lưu</Button>
+        </div>
+      </div>
+    ),
+  },
+];
+
 function Posts() {
+  const [detailEdit, setDetailEdit] = useState(false);
+
   return (
     <div className="wrapper-posts">
       <div className="posts-left">
@@ -24,9 +57,13 @@ function Posts() {
           <div className="posts-content-left">
             <SectionWrapper title="Giới thiệu">
               <div className="posts-introduce">
-                <Button className="add-biography" primary>
-                  Thêm tiểu sử
-                </Button>
+                <Collapse
+                  items={items}
+                  expandIcon={() => <EditTwoTone twoToneColor="#ffffff" />}
+                  style={{
+                    backgroundColor: "rgb(119, 136, 153)",
+                  }}
+                />
                 <div className="posts-introduce-item">
                   <HomeFilled />
                   <p>Đến từ Từ Sơn</p>
@@ -43,7 +80,11 @@ function Posts() {
                   <ReadFilled />
                   <p>Đại học Công nghiệp Hà Nội</p>
                 </div>
-                <Button className="add-biography" primary>
+                <Button
+                  primary
+                  className="add-biography"
+                  onClick={() => setDetailEdit(true)}
+                >
                   Chỉnh sửa chi tiết
                 </Button>
               </div>
@@ -105,6 +146,13 @@ function Posts() {
           <Post />
         </div>
       </div>
+      {detailEdit && (
+        <Modal
+          open={detailEdit}
+          title="Chỉnh sửa chi tiết"
+          onCancel={() => setDetailEdit(false)}
+        ></Modal>
+      )}
     </div>
   );
 }

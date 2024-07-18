@@ -13,3 +13,18 @@
     font-size: 13px;
   }
 }
+
+.popover-bar-user {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+
+  .popover-bar-user-name {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .popover-bar-user-btn {
+    flex: 1;
+  }
+}
