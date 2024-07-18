@@ -13,7 +13,6 @@ import "./Posts.scss";
 
 import Post from "../../../../components/Post/index.tsx";
 import Think from "../../../../components/Think/index.tsx";
-import Modal from "../../../../components/Modal/index.tsx";
 import Button from "../../../../components/Button/index.tsx";
 import BarUser from "../../../../components/BarUser/index.tsx";
 import SectionWrapper from "../../../../components/SectionWrapper/index.tsx";
@@ -48,8 +47,6 @@ const items: CollapseProps["items"] = [
 ];
 
 function Posts() {
-  const [detailEdit, setDetailEdit] = useState(false);
-
   return (
     <div className="wrapper-posts">
       <div className="posts-left">
@@ -80,11 +77,7 @@ function Posts() {
                   <ReadFilled />
                   <p>Đại học Công nghiệp Hà Nội</p>
                 </div>
-                <Button
-                  primary
-                  className="add-biography"
-                  onClick={() => setDetailEdit(true)}
-                >
+                <Button primary className="add-biography" to="about">
                   Chỉnh sửa chi tiết
                 </Button>
               </div>
@@ -146,13 +139,6 @@ function Posts() {
           <Post />
         </div>
       </div>
-      {detailEdit && (
-        <Modal
-          open={detailEdit}
-          title="Chỉnh sửa chi tiết"
-          onCancel={() => setDetailEdit(false)}
-        ></Modal>
-      )}
     </div>
   );
 }

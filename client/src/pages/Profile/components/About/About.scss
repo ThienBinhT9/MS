@@ -1,0 +1,11 @@
+.wrapper-about {
+  padding: 12px;
+  border-radius: 12px;
+  background-color: var(--bg-white);
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--border-color);
+
+  .ant-tabs .ant-tabs-ink-bar {
+    background-color: var(--primary-color);
+  }
+}

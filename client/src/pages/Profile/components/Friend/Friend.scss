@@ -1,0 +1,25 @@
+.wrapper-friends {
+  padding: 12px 24px;
+  background-color: var(--bg-white);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--border-color);
+
+  .friend-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    .friend-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+
+  .friend-content {
+    .ant-tabs .ant-tabs-ink-bar {
+      background-color: var(--primary-color);
+    }
+  }
+}
