@@ -1,11 +1,10 @@
 import React from "react";
 import { Tabs } from "antd";
+import { GlobalOutlined, EllipsisOutlined } from "@ant-design/icons";
 
 import "./About.scss";
 
 function Overview() {
-  console.log("Tab overview");
-
   return (
     <div>
       <p>Over view</p>
@@ -14,21 +13,28 @@ function Overview() {
 }
 
 function Job() {
-  console.log("Tab Job");
-
   return (
-    <div>
-      <p>Job</p>
+    <div className="wrapper-about-job">
+      <p className="profile-about-title">Công việc</p>
     </div>
   );
 }
 
 function Born() {
-  console.log("Tab Born");
-
   return (
-    <div>
-      <p>Born</p>
+    <div className="wrapper-about-born">
+      <p className="profile-about-title">Nơi sống</p>
+      <div className="about-born-current-life">
+        <div>
+          <p style={{ fontSize: 18, fontWeight: 600 }}>Hà Nội</p>
+          <p>Tỉnh/Thành phố hiện tại</p>
+        </div>
+        <div>
+          <GlobalOutlined />
+          <EllipsisOutlined />
+        </div>
+      </div>
+      <div></div>
     </div>
   );
 }
@@ -48,7 +54,7 @@ function About() {
       children: <Job />,
     },
     {
-      label: <p style={{ fontSize: 16, fontWeight: 500 }}>Nơi từng sống</p>,
+      label: <p style={{ fontSize: 16, fontWeight: 500 }}>Nơi sống</p>,
       key: "3",
       children: <Born />,
     },

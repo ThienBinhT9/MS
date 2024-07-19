@@ -8,4 +8,18 @@
   .ant-tabs .ant-tabs-ink-bar {
     background-color: var(--primary-color);
   }
+
+  .profile-about-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .wrapper-about-born {
+    .about-born-current-life {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
 }
