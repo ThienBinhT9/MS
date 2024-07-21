@@ -4,5 +4,6 @@ const { VerificationByAccessToken } = require("../middlewares/auth.middleware");
 
 route.get("/detail/:id", VerificationByAccessToken, UserController.getDetailUser);
 
+route.patch("/update", VerificationByAccessToken, UserController.updateUser);
 
 module.exports = route;

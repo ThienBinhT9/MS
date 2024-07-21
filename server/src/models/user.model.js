@@ -1,25 +1,35 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const privacySchema = new Schema({
+  bio: { type: String, enum: ['public', 'friends', 'private'], default: 'friends' },
+  gender: { type: String, enum: ['public', 'friends', 'private'], default: 'private' },
+  phone: { type: String, enum: ['public', 'friends', 'private'], default: 'public' },
+  homeTown: { type: String, enum: ['public', 'friends', 'private'], default: 'friends' },
+  currentResidence: { type: String, enum: ['public', 'friends', 'private'], default: 'public' },
+  university: { type: String, enum: ['public', 'friends', 'private'], default: 'public' },
+  highSchool: { type: String, enum: ['public', 'friends', 'private'], default: 'public' },
+  relationship: { type: String, enum: ['public', 'friends', 'private'], default: 'public' },
+  currentJob: { type: String, enum: ['public', 'friends', 'private'], default: 'private' },
+},{_id:false});
+
 const userSchema = new Schema(
   {
     password: { type: String, require: true },
     email: { type: String, require: true },
+    gender: { type: String, default: "" },
     phone: { type: String, default: "" },
     bio: { type: String, default: "" },
-    gender: { type: String, default: "" },
-    username: {
-      type: new Schema({ lastName: String, firstName: String }, { _id: false }),
-      default: { lastName: "", firstName: "" },
-    },
-    profilePicture: {
-      type: new Schema({ avatar: String, background: String }, { _id: false }),
-      default: { avatar:"https://i.pinimg.com/564x/fa/bc/c4/fabcc4fb39e3002fb5c812cef98e59ae.jpg", background: "" }
-    },
-    address: {
-      type: new Schema({ homeTown: String, currentResidence: String }, { _id: false }),
-      default: { homeTown: "", currentResidence: "" },
-    },
+    lastName: { type: String, default: "" },
+    firstName: { type: String, default: "" },
+    homeTown: { type: String, default: "" },
+    currentResidence: { type: String, default: "" },
+    background: { type: String, default: "" },
+    university: { type: String, default: "" },
+    highSchool: { type: String, default: "" },
+    relationship: { type: String, default: "" },
+    currentJob: { type: String, default: "" },
+    link: { type: String, default: "" },
     friends: {
       type: [{ type: Schema.Types.ObjectId, ref: "user" }],
       default: [],
@@ -28,18 +38,19 @@ const userSchema = new Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "post" }],
       default: [],
     },
-    education: {
-      type: new Schema({ university: String, highSchool: String }, { _id: false }),
-      default: { university: "", highSchool: "" }
+    avatar: {
+      type: String,
+      default:
+        "https://i.pinimg.com/564x/fa/bc/c4/fabcc4fb39e3002fb5c812cef98e59ae.jpg",
     },
-    relationship: { type: String, default: "" },
-    link: { type: String, default: "" },
-    currentJob: { type: String, default: "" },
+    privacy: { type: privacySchema, default: {}},
   },
   {
     timestamps: true,
     collection: "user",
   }
 );
+
+userSchema.method.ge;
 
 module.exports = mongoose.model("user", userSchema);

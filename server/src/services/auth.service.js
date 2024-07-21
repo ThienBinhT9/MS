@@ -39,7 +39,7 @@ class AuthService {
         return { code: 400, message: "Key creation failed!" };
       }
 
-      const { password: _password, ...passField } = new_user._doc;
+      const { password: _password, privacy, ...passField } = new_user._doc;
       return { code: 201, metadata: { ...tokens, ...passField } };
     } catch (error) {
       return error.message;
@@ -73,7 +73,7 @@ class AuthService {
       );
       if (key === null) return { code: 400, message: "Key creation failed!" };
 
-      const { password: _password, ...passField } = findUserEmail._doc;
+      const { password: _password, privacy, ...passField } = findUserEmail._doc;
       return { code: 200, metadata: { ...tokens, ...passField } };
     } catch (error) {
       return error.message;
