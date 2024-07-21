@@ -1,0 +1,31 @@
+.wrapper-picture {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 8px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .picture-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .picture-item-edit {
+      cursor: pointer;
+      position: absolute;
+      z-index: 9;
+      top: 6px;
+      right: 6px;
+      padding: 6px;
+      border-radius: 50%;
+      background-color: aliceblue;
+    }
+  }
+}

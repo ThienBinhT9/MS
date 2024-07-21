@@ -1,10 +1,12 @@
 import React from "react";
 import { Tabs } from "antd";
-import { SearchOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 
 import "./Friend.scss";
 
 import Input from "../../../../components/Input/index.tsx";
+import BarUser from "../../../../components/BarUser/index.tsx";
+import SectionWrapper from "../../../../components/SectionWrapper/index.tsx";
 
 function Friend() {
   const itemTab = [
@@ -27,9 +29,9 @@ function Friend() {
     },
   ];
   return (
-    <div className="wrapper-friends">
-      <div className="friend-header">
-        <h5 className="friend-title">Bạn bè</h5>
+    <SectionWrapper
+      title="Bạn bè"
+      headerRight={
         <div>
           <Input
             onlyBottom
@@ -37,20 +39,24 @@ function Friend() {
             suffix={<SearchOutlined />}
           />
         </div>
-      </div>
+      }
+    >
       <div className="friend-content">
         <Tabs defaultActiveKey="1" items={itemTab} />
       </div>
-    </div>
+    </SectionWrapper>
   );
 }
 
 function AllFriend() {
   return (
     <div className="tab-all-friend">
-      <div className="tab-all-friend-item">
-        <div></div>
-        <EllipsisOutlined />
+      <div className="tab-friend-section">
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
       </div>
     </div>
   );
@@ -58,16 +64,27 @@ function AllFriend() {
 
 function SameCountry() {
   return (
-    <div>
-      <p>Quê quán</p>
+    <div className="tab-same-country-friend">
+      <div className="tab-friend-section">
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
+      </div>
     </div>
   );
 }
 
 function SameCurrentLife() {
   return (
-    <div>
-      <p>Nơi sống hiện tại</p>
+    <div className="tab-current-life-friend">
+      <div className="tab-friend-section">
+        <BarUser className="tab-friend-item" options />
+        <BarUser className="tab-friend-item" options />
+      </div>
     </div>
   );
 }

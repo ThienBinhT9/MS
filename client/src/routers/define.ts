@@ -9,6 +9,7 @@ import ForgotPassword from "../pages/Authen/ForgotPassword.tsx";
 import Posts from "../pages/Profile/components/Posts/index.tsx";
 import About from "../pages/Profile/components/About/index.tsx";
 import Friend from "../pages/Profile/components/Friend/index.tsx";
+import Picture from "../pages/Profile/components/Picture/index.tsx";
 
 //layouts
 import MainLayout from "../layouts/MainLayout/index.tsx";
@@ -37,6 +38,7 @@ export const privateRoute: IRoute[] = [
       { path: "", element: Posts },
       { path: "about", element: About },
       { path: "friends", element: Friend },
+      { path: "picture", element: Picture },
     ],
   },
 ];

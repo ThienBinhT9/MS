@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
-import { DownOutlined } from "@ant-design/icons";
+import { CaretDownOutlined, PlusOutlined, EditFilled } from "@ant-design/icons";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { Avatar, Dropdown, MenuProps, Divider, Menu } from "antd";
 
 import "./Profile.scss";
+
+import Button from "../../components/Button/index.tsx";
+
 type MenuItem = Required<MenuProps>["items"][number];
 
 const optionAvatar: MenuProps["items"] = [
@@ -12,9 +15,7 @@ const optionAvatar: MenuProps["items"] = [
     label: <p>Xem ảnh đại diện</p>,
     key: "0",
   },
-  {
-    type: "divider",
-  },
+  { type: "divider" },
   {
     key: "3",
     label: <div>Chọn ảnh đại diện</div>,
@@ -51,12 +52,16 @@ function Profile() {
       key: "friends",
       className: "profile-header-nav-item",
     },
-    { key: "image", label: "Ảnh", className: "profile-header-nav-item" },
+    {
+      key: "picture",
+      label: <NavLink to="picture">Ảnh</NavLink>,
+      className: "profile-header-nav-item",
+    },
     {
       key: "more",
       label: (
         <span>
-          Xem thêm <DownOutlined className="custom-icon" />
+          Xem thêm <CaretDownOutlined className="custom-icon" />
         </span>
       ),
       className: "profile-header-nav-item profile-header-nav-item--more",
@@ -77,29 +82,43 @@ function Profile() {
       top: 0,
       behavior: "smooth",
     });
-  }, [params]);
+  }, [params, host]);
 
   return (
     <div className="wrapper-profile">
       <div className="profile-header">
         <div className="profile-header-inner">
           <div className="profile-header-info">
-            <Dropdown
-              menu={{ items: optionAvatar }}
-              placement="bottom"
-              trigger={["click"]}
-              overlayStyle={{ width: 300 }}
-              arrow={{ pointAtCenter: true }}
-            >
-              <Avatar
-                size={150}
-                style={{ cursor: "pointer" }}
-                src="https://i.pinimg.com/564x/ab/69/4f/ab694f8e0555c4aa475469e6b141dd17.jpg"
-              />
-            </Dropdown>
-            <div className="profile-author">
-              <p className="profile-name">Đỗ Hoài Phong</p>
-              <span className="profile-friend">364 Bạn bè</span>
+            <div className="header-info-left">
+              <Dropdown
+                menu={{ items: optionAvatar }}
+                placement="bottom"
+                trigger={["click"]}
+                overlayStyle={{ width: 300 }}
+                arrow={{ pointAtCenter: true }}
+              >
+                <Avatar
+                  size={150}
+                  style={{ cursor: "pointer" }}
+                  src="https://i.pinimg.com/564x/ab/69/4f/ab694f8e0555c4aa475469e6b141dd17.jpg"
+                />
+              </Dropdown>
+              <div className="profile-author">
+                <p className="profile-name">Đỗ Hoài Phong</p>
+                <span className="profile-friend">364 Bạn bè</span>
+              </div>
+            </div>
+            <div className="header-info-right">
+              <Button
+                primary
+                icon={<PlusOutlined />}
+                className="info-right-item"
+              >
+                Tạo bài viết
+              </Button>
+              <Button className="info-right-item" icon={<EditFilled />}>
+                Chỉnh sửa trang cá nhân
+              </Button>
             </div>
           </div>
           <Divider style={{ backgroundColor: "#eaeaea", marginBottom: 0 }} />

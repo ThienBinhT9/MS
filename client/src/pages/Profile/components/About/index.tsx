@@ -1,13 +1,38 @@
 import React from "react";
 import { Tabs } from "antd";
-import { GlobalOutlined, EllipsisOutlined } from "@ant-design/icons";
 
 import "./About.scss";
 
+import Collapse from "../../../../components/Collapse/index.tsx";
+
 function Overview() {
   return (
-    <div>
-      <p>Over view</p>
+    <div className="wrapper-about-overview">
+      <div className="about-section">
+        <Collapse
+          title="Hà Nội"
+          subTitle="Tỉnh/Thành phố hiện tại"
+          placeholder="Nơi ở hiện tại"
+          select
+        />
+        <Collapse
+          title="Từ Sơn"
+          subTitle="Quê quán"
+          placeholder="Quê quán của bạn"
+          select
+        />
+        <Collapse
+          title="Độc Thân"
+          subTitle="Mối quan hệ"
+          placeholder="Nơi ở hiện tại"
+          select
+        />
+        <Collapse
+          title="0969975192"
+          subTitle="Số di động"
+          placeholder="Số di động của bạn"
+        />
+      </div>
     </div>
   );
 }
@@ -15,7 +40,24 @@ function Overview() {
 function Job() {
   return (
     <div className="wrapper-about-job">
-      <p className="profile-about-title">Công việc</p>
+      <div className="about-section">
+        <p className="profile-about-title">Công việc</p>
+        <Collapse
+          title="Hà Nội"
+          subTitle="Tỉnh/Thành phố hiện tại"
+          placeholder="Nơi ở hiện tại"
+          select
+        />
+      </div>
+      <div className="about-section">
+        <p className="profile-about-title">Học vấn</p>
+        <Collapse
+          title="Đại học Công nghiệp Hà Nội"
+          subTitle="Đại Học"
+          placeholder="Trường đại học bạn theo học"
+        />
+        <Collapse title="Trường THPT Từ Sơn" subTitle="Trường THPT" />
+      </div>
     </div>
   );
 }
@@ -23,18 +65,20 @@ function Job() {
 function Born() {
   return (
     <div className="wrapper-about-born">
-      <p className="profile-about-title">Nơi sống</p>
-      <div className="about-born-current-life">
-        <div>
-          <p style={{ fontSize: 18, fontWeight: 600 }}>Hà Nội</p>
-          <p>Tỉnh/Thành phố hiện tại</p>
-        </div>
-        <div>
-          <GlobalOutlined />
-          <EllipsisOutlined />
-        </div>
+      <div className="about-section">
+        <p className="profile-about-title">Nơi sống</p>
+        <Collapse
+          title="Hà Nội"
+          subTitle="Tỉnh/Thành phố hiện tại"
+          placeholder="Nơi ở hiện tại"
+          select
+        />
+        <Collapse
+          title="Từ Sơn"
+          subTitle="Quê quán"
+          placeholder="Quê quán hiện tại"
+        />
       </div>
-      <div></div>
     </div>
   );
 }
@@ -48,7 +92,7 @@ function About() {
     },
     {
       label: (
-        <p style={{ fontSize: 16, fontWeight: 500 }}>Công việc và học vấn</p>
+        <p style={{ fontSize: 16, fontWeight: 500 }}>Công việc & học vấn</p>
       ),
       key: "2",
       children: <Job />,
@@ -61,7 +105,7 @@ function About() {
   ];
   return (
     <div className="wrapper-about">
-      <Tabs defaultActiveKey="1" tabPosition={"left"} items={itemTab} />
+      <Tabs tabPosition={"left"} items={itemTab} />
     </div>
   );
 }

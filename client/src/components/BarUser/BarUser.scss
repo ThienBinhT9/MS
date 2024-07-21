@@ -1,16 +1,33 @@
 .wrapper-bar-user {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
 
-  .bar-user-name {
-    font-size: 15px;
-    font-weight: 600;
+  .bar-user-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+
+    .bar-user-name {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .bar-user-mutual-friends {
+      font-size: 13px;
+    }
   }
 
-  .bar-user-mutual-friends {
-    font-size: 13px;
+  .bar-user-right {
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    font-size: 20px;
+
+    &:hover {
+      background-color: #eaeaea;
+    }
   }
 }
 

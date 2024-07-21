@@ -85,7 +85,7 @@ function Posts() {
             <SectionWrapper
               title="Ảnh"
               textMore="Xem tất cả ảnh"
-              toTextMore="/profile/images"
+              toTextMore="/profile/picture"
             >
               <div className="posts-images">
                 <Image

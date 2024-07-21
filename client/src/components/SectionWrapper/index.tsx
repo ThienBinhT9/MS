@@ -8,19 +8,23 @@ interface Props {
   textMore?: string;
   toTextMore?: string;
   children: any;
+  headerRight?: any;
 }
 
 function SectionWrapper(props: Props) {
-  const { title, textMore, toTextMore, children } = props;
+  const { title, textMore, toTextMore, children, headerRight } = props;
   return (
     <div className="wrapper-section-wrapper">
       <div className="section-wrapper-header">
         <p className="section-wrapper-title">{title}</p>
-        {textMore && toTextMore && (
-          <NavLink to={toTextMore} className="section-wrapper-more">
-            {textMore}
-          </NavLink>
-        )}
+        {headerRight
+          ? headerRight
+          : textMore &&
+            toTextMore && (
+              <NavLink to={toTextMore} className="section-wrapper-more">
+                {textMore}
+              </NavLink>
+            )}
       </div>
       {children}
     </div>

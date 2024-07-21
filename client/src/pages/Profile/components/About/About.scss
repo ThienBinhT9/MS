@@ -12,14 +12,18 @@
   .profile-about-title {
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 12px;
+  }
+
+  .about-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
   }
 
   .wrapper-about-born {
-    .about-born-current-life {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .ant-collapse-item > .ant-collapse-header {
+      padding: 6px 16px;
     }
   }
 }
