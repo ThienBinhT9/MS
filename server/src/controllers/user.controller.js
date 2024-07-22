@@ -13,7 +13,16 @@ class UserController {
 
   async updateUser(req, res) {
     try {
-      return res.status(200).json(await UserService.updateUser(req.body))
+      return res.status(200).json(await UserService.updateUser(req.body, req.key))
+    } catch (error) {
+      return res.status(500).json(error.message)
+    }
+  }
+
+  async searchUser(req, res) {
+    try {
+      const {q} = req.query
+      return res.status(200).json(await UserService.searchUser(q))
     } catch (error) {
       return res.status(500).json(error.message)
     }

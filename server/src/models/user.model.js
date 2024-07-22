@@ -30,10 +30,6 @@ const userSchema = new Schema(
     relationship: { type: String, default: "" },
     currentJob: { type: String, default: "" },
     link: { type: String, default: "" },
-    friends: {
-      type: [{ type: Schema.Types.ObjectId, ref: "user" }],
-      default: [],
-    },
     posts: {
       type: [{ type: Schema.Types.ObjectId, ref: "post" }],
       default: [],
@@ -51,6 +47,6 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.method.ge;
+userSchema.index({firstName:"text", lastName:"text", homeTown:"text"})
 
 module.exports = mongoose.model("user", userSchema);

@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const lodash = require("lodash")
 
 const Key = require("../models/key.model");
 
@@ -34,4 +35,12 @@ const createKey = async (publicKey, privateKey, refreshToken, keyUserId) => {
   }
 };
 
-module.exports = { createTokens, createKey };
+const getInfoDataByObject = ({feilds = [], object = {}}) => {
+  return lodash.pick(object, feilds)
+}
+
+const getInfoDataByList = ({feilds = [], array = []}) => {
+  return array.map(item => lodash.pick(item, feilds))
+}
+
+module.exports = { createTokens, createKey, getInfoDataByObject, getInfoDataByList };
