@@ -18,10 +18,29 @@ const deleteUserById = async (id) => {
   return await User.deleteOne({ _id: id }).lean();
 };
 
-const getListUserByQuery = async(query, feilds) => {
+const getListUserByQuery = async({query, select, page = 1}) => {
+
+  const options = {
+    page,
+    select,
+    limit:15,
+    sort:{ createdAt: -1 }
+  }
   
-  const list = await User.find(query)
-  return getInfoDataByList({feilds, array:list})
+  const result = await User.paginate(query, options)
+
+  return {
+    data: result.docs,
+    totalDocs: result.totalDocs,
+    totalPages: result.totalPages,
+    page: result.page,
+    limit: result.limit,
+    hasPrevPage: result.hasPrevPage,
+    hasNextPage: result.hasNextPage,
+    prevPage: result.prevPage,
+    nextPage: result.nextPage
+  };
+  
 }
 
 module.exports = {

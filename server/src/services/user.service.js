@@ -53,24 +53,23 @@ class UserService {
     }
   }
 
-  async searchUser(query){
+  async searchUser(query, page){
     try {
       const regex = new RegExp(query, 'i'); 
       const _query = {
-        $or: [
-          { firstName: regex },
-          { lastName: regex },
-          { homeTown: regex }
-        ]
+        $or: [{ firstName: regex }, { lastName: regex }, { homeTown: regex }]
       };
-      const data = await getListUserByQuery(_query, ["firstName", "lastName", "avatar"])
+
+      const data = await getListUserByQuery({
+        select:["firstName", "lastName", "avatar"],
+        query:_query,
+        page
+      })
       return { code:200, metadata:data }
     } catch (error) {
-      return error.message
+      return {code:500, messge:error.message}
     }
   }
-
-
 }
 
 module.exports = new UserService();

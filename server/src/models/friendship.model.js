@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 const mongoosePaginate = require('mongoose-paginate-v2');
 
 const friendShipSchema = new Schema({
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    friend: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    user: { type: Schema.Types.ObjectId, ref: 'user', required: true },
+    friend: { type: Schema.Types.ObjectId, ref: 'user', required: true },
     status: { type: String, enum: ['pending', 'accepted'], default: 'pending' },
 },{
     timestamps:true,

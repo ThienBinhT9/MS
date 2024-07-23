@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const privacySchema = new Schema({
   bio: { type: String, enum: ['public', 'friends', 'private'], default: 'friends' },
@@ -48,5 +49,6 @@ const userSchema = new Schema(
 );
 
 userSchema.index({firstName:"text", lastName:"text", homeTown:"text"})
+userSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("user", userSchema);

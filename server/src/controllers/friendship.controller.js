@@ -53,8 +53,9 @@ class FriendShipController{
 
     async searchFriends(req, res){
         try {
-            const {q} = req.query
-            return res.status(200).json(await FriendShipService.searchFriend(q))
+            const {q, page} = req.query
+            const { keyUserId } = req.key
+            return res.status(200).json(await FriendShipService.searchFriend(keyUserId, q, page))
         } catch (error) {
             return res.status(500).json(error.message)
         }
@@ -63,7 +64,8 @@ class FriendShipController{
     async getListFriend(req, res){
         try {
             const { keyUserId } = req.key
-            return res.status(200).json(await FriendShipService.getListFriend(keyUserId))
+            const { page } = req.query
+            return res.status(200).json(await FriendShipService.getListFriend(keyUserId, page))
         } catch (error) {
             return res.status(500).json(error.message)
         }
