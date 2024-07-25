@@ -72,7 +72,6 @@ class AuthService {
         findUserEmail._id
       );
       if (key === null) return { code: 400, message: "Key creation failed!" };
-      console.log({findUserEmail});
       const { password: _password, privacy, ...passField } = findUserEmail;
       return { code: 200, metadata: { ...tokens, ...passField } };
     } catch (error) {

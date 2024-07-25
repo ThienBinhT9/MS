@@ -1,6 +1,5 @@
 const { areFriends, addFriends, getList } = require("../models/repo/friendShip.repo");
 const FriendShip = require("../models/friendship.model");
-const mongoose = require("mongoose")
 
 class FriendShipService {
   async request(client_id, friend_id) {
@@ -113,18 +112,51 @@ class FriendShipService {
     }
   }
 
-  async searchFriend(client_id, query, page) {
+  async searchFriend(client_id, query, page = 1) {
     try {
-      const query = { user:client_id, status:"accepted" }
-      const data = await getList({
+      const _query = { user:client_id, status:"accepted" }
+      const regex = new RegExp(query, 'i'); 
+
+      const options = {
         page,
-        query,
-        populate: {
-          path:"user", select:"firstName lastName avatar"
+        limit:20,
+      }
+
+      const aggregateQuery = FriendShip.aggregate([
+        { $match: _query },
+        {
+          $lookup: {
+            from: 'user', // Tên collection của bảng User
+            localField: 'friend',
+            foreignField: '_id',
+            as: 'friendDetails'
+          }
+        },
+        { $unwind: '$friendDetails' },
+        {
+          $match: {
+            $or: [
+              { 'friendDetails.firstName': regex },
+              { 'friendDetails.lastName': regex },
+              { 'friendDetails.homeTown': regex }
+            ]
+          }
+        },
+        {
+          $project: {
+            user: 1,
+            friend: 1,
+            status: 1,
+            'friendDetails.firstName': 1,
+            'friendDetails.lastName': 1,
+            'friendDetails.avatar': 1
+          }
         }
-      })
+    ]);
+
+    const paginatedResults = await FriendShip.aggregatePaginate(aggregateQuery, options);
     
-    return { code: 200, metadata: data };
+    return { code: 200, metadata: paginatedResults };
 
     } catch (error) {
       return { code: 500, message: error.message };
@@ -138,7 +170,7 @@ class FriendShipService {
         page,
         query,
         populate: {
-          path:"user", select:"firstName lastName avatar"
+          path:"friend", select:"firstName lastName avatar"
         }
       })
 
