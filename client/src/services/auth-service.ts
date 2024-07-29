@@ -25,9 +25,9 @@ export const signIn = async (
       dispatch(setCurrentUser(userData));
       return navigate("/");
     }
-    toast(result.data.message, { type: "error" });
+    toast(result?.data?.message, { type: "error" });
   } catch (error) {
-    return toast(error.response.data.message, { type: "error" });
+    return toast(error.response?.data?.message, { type: "error" });
   } finally {
     dispatch(setLoading(false));
   }
@@ -48,9 +48,9 @@ export const signUp = async (
       dispatch(setCurrentUser(dataUser));
       return navigate("/");
     }
-    toast(result.data.message, { type: "error" });
+    toast(result?.data?.message, { type: "error" });
   } catch (error) {
-    return toast(error.response.data.message, { type: "error" });
+    return toast(error?.response?.data?.message, { type: "error" });
   } finally {
     dispatch(setLoading(false));
   }
@@ -75,10 +75,10 @@ export const signOut = async (
       dispatch(setCurrentUser(null));
       return navigate("/auth/sign-in");
     }
-    toast(result.data.message, { type: "error" });
-    return result.data;
+    toast(result?.data?.message, { type: "error" });
+    return result?.data;
   } catch (error) {
-    toast(error.response.data.message, { type: "error" });
+    toast(error?.response?.data?.message, { type: "error" });
   } finally {
     dispatch(setLoading(false));
   }
@@ -92,8 +92,8 @@ export const refreshToken = async (refresh_token: string, userId: string) => {
         client_id: userId,
       },
     });
-    return result.data;
+    return result?.data;
   } catch (error) {
-    return error.message;
+    return error?.message;
   }
 };

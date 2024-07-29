@@ -1,0 +1,47 @@
+.wrapper-add-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+
+  .add-info-title {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+
+  .add-info-content {
+    background-color: var(--bg-white);
+    border: 1px solid #eaeaea;
+    box-shadow: var(--box-shadow);
+    padding: 12px;
+    width: 600px;
+    overflow: hidden;
+
+    .section-item-two {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .section-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-btns {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .contact-info {
+    }
+  }
+}
