@@ -67,6 +67,15 @@
   padding: 3px 12px;
 }
 
+:where(.css-dev-only-do-not-override-m4timi).ant-picker-outlined:hover {
+  border-color: var(--primary-color);
+}
+
+:where(.css-dev-only-do-not-override-m4timi).ant-picker-outlined:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(255, 228, 181, 0.1);
+}
+
 .ant-image-preview-img {
   width: auto;
   object-fit: contain;

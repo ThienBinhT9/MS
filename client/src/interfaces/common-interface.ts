@@ -1,5 +1,4 @@
 import React from "react";
-import { string } from "yup";
 
 export interface IRoute {
   path: string;
@@ -10,5 +9,5 @@ export interface IRoute {
 
 export interface IGender {
   label: String;
-  value: Number;
+  value: any;
 }

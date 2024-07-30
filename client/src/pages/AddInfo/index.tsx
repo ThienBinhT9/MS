@@ -1,21 +1,29 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
+import dayjs from "dayjs";
 
 import "./AddInfo.scss";
-import {
-  TEXT_MAX,
-  TEXT_REQUIRED_INPUT,
-} from "../../constants/validate-constants.ts";
+import { TEXT_REQUIRED_INPUT } from "../../constants/validate-constants.ts";
 import { GENDER } from "../../constants/common-constants.ts";
 
 import Input from "../../components/Input/index.tsx";
 import Select from "../../components/Select/index.tsx";
 import Button from "../../components/Button/index.tsx";
+import DatePicker from "../../components/DatePicker/index.tsx";
 
 function AddInfo() {
-  const schemaForm = Yup.object().shape({});
+  const schemaForm = Yup.object().shape({
+    dateOfBirth: Yup.date().required(TEXT_REQUIRED_INPUT("Date of birth")),
+    firstName: Yup.string().required(TEXT_REQUIRED_INPUT("First name")),
+    lastName: Yup.string().required(TEXT_REQUIRED_INPUT("Last name")),
+    gender: Yup.number().required(TEXT_REQUIRED_INPUT("gender")),
+    bio: Yup.string(),
+    homeTown: Yup.string(),
+    phone: Yup.string(),
+    link: Yup.string(),
+  });
 
   const {
     control,
@@ -23,17 +31,21 @@ function AddInfo() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      dateOfBirth: "",
-      gender: null,
       bio: "",
-      homeTown: "",
-      phone: "",
       link: "",
+      phone: "",
+      lastName: "",
+      homeTown: "",
+      firstName: "",
+      gender: undefined,
+      dateOfBirth: undefined,
     },
     resolver: yupResolver(schemaForm),
   });
+
+  const handleAddInfo = (data) => {
+    console.log({ data });
+  };
 
   return (
     <div className="wrapper-add-info">
@@ -45,28 +57,99 @@ function AddInfo() {
             </h3>
             <div className="section-content">
               <div className="section-item-two">
-                <Input label="Họ" require />
-                <Input label="Tên" require />
-              </div>
-              <div className="section-item-two">
-                <Input label="Ngày sinh" require />
-                <Select
-                  require
-                  label="Giới tính"
-                  options={[
-                    { label: "Nam", value: 0 },
-                    { label: "Nữ", value: 1 },
-                  ]}
+                <Controller
+                  name="firstName"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Input
+                      require
+                      label="Họ"
+                      value={value}
+                      onChange={onChange}
+                    />
+                  )}
+                />
+                <Controller
+                  name="lastName"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Input
+                      require
+                      label="Tên"
+                      value={value}
+                      onChange={onChange}
+                    />
+                  )}
                 />
               </div>
-              <Input label="Biệt danh" />
-              <Input label="Quê quán" />
-              <Input label="Số điện thoại" />
-              <Input label="Link Instagram" />
+              <Controller
+                name="bio"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Input label="Biệt danh" value={value} onChange={onChange} />
+                )}
+              />
+              <Controller
+                name="homeTown"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Input label="Quê quán" value={value} onChange={onChange} />
+                )}
+              />
+              <div className="section-item-two">
+                <Controller
+                  name="dateOfBirth"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <DatePicker
+                      require
+                      value={value ? dayjs(value) : null}
+                      label="Ngày sinh"
+                      onChange={onChange}
+                    />
+                  )}
+                />
+                <Controller
+                  name="gender"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Select
+                      require
+                      value={value}
+                      options={GENDER}
+                      label="Giới tính"
+                      onChange={onChange}
+                      placeholder="-- Choose an options --"
+                    />
+                  )}
+                />
+              </div>
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    label="Số điện thoại"
+                    value={value}
+                    onChange={onChange}
+                  />
+                )}
+              />
+              <Controller
+                name="link"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    label="Link Instagram"
+                    value={value}
+                    onChange={onChange}
+                  />
+                )}
+              />
             </div>
             <div className="section-btns">
               <p></p>
-              <Button primary onClick={() => {}}>
+              <Button primary onClick={handleSubmit(handleAddInfo)}>
                 Lưu
               </Button>
             </div>

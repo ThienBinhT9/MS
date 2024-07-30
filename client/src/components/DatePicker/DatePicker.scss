@@ -1,0 +1,22 @@
+.wrapper-form {
+  width: 100%;
+  .form-label {
+    margin-bottom: 8px;
+    display: inline-block;
+    font-weight: 500;
+  }
+
+  .form-datepicker {
+    width: 100%;
+    font-size: 16px;
+    padding: 7px 12px;
+  }
+
+  .form-error {
+    font-size: 12px;
+    color: rgb(243, 84, 84);
+    display: block;
+    text-align: end;
+    margin-top: 6px;
+  }
+}
