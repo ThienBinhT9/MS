@@ -100,7 +100,7 @@ class AuthService {
       }
 
       if (refresh_token !== key.refreshToken)
-        return { code: 401, message: "Unauthorized! 2" };
+        return { code: 401, message: "Unauthorized!" };
 
       const found_user = await findUserById(keyUserId);
       if (!found_user) return { code: 401, message: "Not you!" };

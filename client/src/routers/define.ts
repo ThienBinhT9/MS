@@ -4,6 +4,7 @@ import SignUp from "../pages/Authen/SignUp.tsx";
 import SignIn from "../pages/Authen/SignIn.tsx";
 import Profile from "../pages/Profile/index.tsx";
 import AddInfo from "../pages/AddInfo/index.tsx";
+import Setting from "../pages/Settings/index.tsx";
 import ForgotPassword from "../pages/Authen/ForgotPassword.tsx";
 
 //sub pages
@@ -31,6 +32,7 @@ export const publicRoute: IRoute[] = [
 
 export const privateRoute: IRoute[] = [
   { path: "/", element: Home, layout: MainLayout },
+  { path: "/settings", element: Setting, layout: MainLayout },
   { path: "/add-info", element: AddInfo, layout: OnlyContentLayout },
   {
     path: "/profile",

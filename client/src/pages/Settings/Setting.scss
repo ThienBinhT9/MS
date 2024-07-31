@@ -1,0 +1,19 @@
+.setting-inner {
+  width: 1150px;
+  margin: 0 auto;
+  padding-top: 32px;
+
+  .setting-content {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow);
+
+    .setting-form {
+      width: 50%;
+
+      .form-item {
+        margin-top: 12px;
+      }
+    }
+  }
+}

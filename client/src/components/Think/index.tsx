@@ -2,7 +2,7 @@ import React from "react";
 import { Divider } from "antd";
 import {
   SmileTwoTone,
-  FileImageTwoTone,
+  PictureTwoTone,
   VideoCameraTwoTone,
 } from "@ant-design/icons";
 
@@ -35,7 +35,7 @@ function Think() {
         <Button
           text
           className="your-thought-item"
-          icon={<FileImageTwoTone twoToneColor="#66CC33" />}
+          icon={<PictureTwoTone twoToneColor="#66CC33" />}
         >
           Ảnh/Video
         </Button>

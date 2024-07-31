@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosHeaders } from "axios";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
 import { refreshToken } from "../services/auth-service.ts";
@@ -6,7 +6,16 @@ import { setSignIn } from "../redux/auth-slice.ts";
 import { Dispatch } from "react";
 import { UnknownAction } from "redux";
 
-const createAxios = (tokens, dispatch: Dispatch<UnknownAction>) => {
+interface IToken {
+  access_token: string;
+  refresh_token: string;
+  userId: string;
+}
+
+export const createAxios = (
+  tokens: IToken,
+  dispatch: Dispatch<UnknownAction>
+) => {
   const newInstance = axios.create();
 
   newInstance.interceptors.request.use(async (config) => {
@@ -16,12 +25,12 @@ const createAxios = (tokens, dispatch: Dispatch<UnknownAction>) => {
     if (decode_token.exp && decode_token.exp < date.getTime() / 1000) {
       const _tokens = await refreshToken(tokens.refresh_token, tokens.userId);
       dispatch(setSignIn(_tokens));
-      const config: AxiosRequestConfig = {
+
+      config.headers = {
         client_id: tokens.userId,
-        refresh_token: _tokens.refresh_token,
         access_token: _tokens.access_token,
-      };
-      config.headers = config;
+        refresh_token: _tokens.refresh_token,
+      } as any;
     }
 
     return config;
@@ -29,5 +38,3 @@ const createAxios = (tokens, dispatch: Dispatch<UnknownAction>) => {
 
   return newInstance;
 };
-
-export default createAxios;

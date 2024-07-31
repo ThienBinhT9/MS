@@ -20,6 +20,7 @@ class AuthController {
   async signOut(req, res) {
     try {
       const { keyUserId } = req.key;
+      console.log({ keyUserId });
       return res
         .status(200)
         .json(await AuthService.SignOut({ userId: keyUserId }));

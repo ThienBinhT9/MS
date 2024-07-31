@@ -13,9 +13,9 @@ function ProtectRoute() {
     if (!token.access_token) navigate("/auth/sign-in");
   }, [token, navigate]);
 
-  useEffect(() => {
-    if (!currentUser?.isUpdateProfile) navigate("/add-info");
-  }, [currentUser, navigate]);
+  // useEffect(() => {
+  //   if (!currentUser?.isUpdateProfile) navigate("/add-info");
+  // }, [currentUser, navigate]);
 
   return <Outlet />;
 }

@@ -11,3 +11,9 @@ export interface IGender {
   label: String;
   value: any;
 }
+
+export interface ITokens {
+  access_token: string;
+  refresh_token: string;
+  userId: string;
+}

@@ -1,12 +1,13 @@
-import axios from "axios";
 import { Dispatch } from "react";
 import { UnknownAction } from "redux";
 import { toast } from "react-toastify";
+import axios, { AxiosInstance } from "axios";
 import { NavigateFunction } from "react-router-dom";
 
 import { IParamsLogin, IParamsRegister } from "../interfaces/auth-interface.ts";
 import { setLoading, setSignIn, setSignUp } from "../redux/auth-slice.ts";
 import { setCurrentUser } from "../redux/user-slice.ts";
+import { ITokens } from "../interfaces/common-interface.ts";
 
 const HOST = "http://localhost:8000";
 
@@ -57,17 +58,19 @@ export const signUp = async (
 };
 
 export const signOut = async (
-  access_token: string,
-  userId: string,
+  axiosInstance: AxiosInstance,
+  token: ITokens,
   navigate: NavigateFunction,
   dispatch: Dispatch<UnknownAction>
 ) => {
   try {
+    console.log({ token });
+
     dispatch(setLoading(true));
-    const result = await axios.post(`${HOST}/auth/sign-out`, userId, {
+    const result = await axios.post(`${HOST}/auth/sign-out`, token.userId, {
       headers: {
-        access_token,
-        client_id: userId,
+        access_token: token.access_token,
+        client_id: token.userId,
       },
     });
     if (result.data.code === 200) {

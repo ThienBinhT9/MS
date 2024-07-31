@@ -10,6 +10,7 @@ import {
   BellOutlined,
   LogoutOutlined,
   SearchOutlined,
+  SettingOutlined,
   MessageOutlined,
   CloseCircleOutlined,
 } from "@ant-design/icons";
@@ -18,6 +19,7 @@ import "./Header.scss";
 import { RootState } from "../../../redux/store";
 import logo from "../../../assets/images/logo.png";
 import { signOut } from "../../../services/auth-service.ts";
+import { createAxios } from "../../../configs/token.config.ts";
 
 import Input from "../../../components/Input/index.tsx";
 import Button from "../../../components/Button/index.tsx";
@@ -30,6 +32,7 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const drawerRef = useRef<HTMLDivElement>(null);
+  const axiosInstance = createAxios(token, dispatch);
 
   const [openDrawerMenu, setOpenDrawerMenu] = useState(false);
   const [openDrawerSearch, setOpenDrawerSearch] = useState(false);
@@ -40,7 +43,7 @@ function Header() {
   };
 
   const handleSignOut = async () => {
-    await signOut(token.access_token, token.userId, navigate, dispatch);
+    await signOut(axiosInstance, token, navigate, dispatch);
     onClose();
   };
 
@@ -49,6 +52,11 @@ function Header() {
       label: <NavLink to="/profile">Trang cá nhân</NavLink>,
       key: "0",
       icon: <UserOutlined />,
+    },
+    {
+      label: <NavLink to="/settings">Cài đặt</NavLink>,
+      key: "1",
+      icon: <SettingOutlined />,
     },
     {
       type: "divider",

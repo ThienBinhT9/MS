@@ -55,7 +55,6 @@ const VerificationByAccessToken = async (req, res, next) => {
   const key = await Key.findOne({ keyUserId: client_id });
   if (!key)
     return res.status(401).json({ code: 401, message: "Unauthorized!" });
-  console.log({ access_token, client_id, key });
 
   jwt.verify(access_token, key.publicKey, (err, payload) => {
     if (err)
