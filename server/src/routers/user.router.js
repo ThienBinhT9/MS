@@ -8,5 +8,9 @@ route.get("/search", VerificationByAccessToken, UserController.searchUser);
 
 route.patch("/update", VerificationByAccessToken, UserController.updateUser);
 
+route.patch("/setting", VerificationByAccessToken, UserController.setting);
+
+
+
 
 module.exports = route;

@@ -3,16 +3,15 @@
   margin: 0 auto;
   padding-top: 32px;
 
-  .setting-content {
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--box-shadow);
+  .setting-form {
+    width: 40%;
 
-    .setting-form {
-      width: 50%;
+    .setting-section {
+      margin-top: 16px;
 
-      .form-item {
-        margin-top: 12px;
+      .setting-title {
+        font-weight: 500;
+        margin-bottom: 8px;
       }
     }
   }

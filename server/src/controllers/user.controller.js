@@ -27,6 +27,15 @@ class UserController {
       return res.status(500).json(error.message)
     }
   }
+
+  async setting(req, res) {
+    try {
+      const { keyUserId } = req.key
+      return res.status(200).json(await UserService.settings(keyUserId, req.body))
+    } catch (error) {
+      return res.status(500).json(error.message)
+    }
+  }
 }
 
 module.exports = new UserController();

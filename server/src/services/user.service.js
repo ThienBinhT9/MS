@@ -1,6 +1,7 @@
 const lodash = require("lodash")
 
 const User = require("../models/user.model")
+const UserSettting = require("../models/userSetting.model")
 
 const { findUserById, getListUserByQuery } = require("../models/repo/user.repo");
 const { areFriends } = require("../models/repo/friendShip.repo")
@@ -68,6 +69,18 @@ class UserService {
       return { code:200, metadata:data }
     } catch (error) {
       return {code:500, messge:error.message}
+    }
+  }
+
+  async settings(client_id, body){
+    try {
+      const result = await UserSettting.findOneAndUpdate({user_id:client_id}, {
+        $set:{...body}
+      }, {new:true})
+
+      return {code:200, metadata:result}
+    } catch (error) {
+      return {code:500, message:error.message}
     }
   }
 }

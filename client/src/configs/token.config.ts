@@ -1,4 +1,4 @@
-import axios, { AxiosHeaders } from "axios";
+import axios from "axios";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
 import { refreshToken } from "../services/auth-service.ts";
