@@ -41,6 +41,24 @@ class AuthController {
       return res.status(500).json(error.message);
     }
   }
+
+  async sendConfirmEmail(req, res) {
+    try {
+      const { email } = req.body;
+      return res.status(200).json(await AuthService.sendConfirmEmail(email));
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
+
+  async confirmEmail(req, res) {
+    try {
+      const { token } = req.params
+      return res.status(200).json(await AuthService.confirmEmail(token));
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
 }
 
 module.exports = new AuthController();

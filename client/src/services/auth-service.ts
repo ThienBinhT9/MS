@@ -64,15 +64,17 @@ export const signOut = async (
   dispatch: Dispatch<UnknownAction>
 ) => {
   try {
-    console.log({ token });
-
     dispatch(setLoading(true));
-    const result = await axios.post(`${HOST}/auth/sign-out`, token.userId, {
-      headers: {
-        access_token: token.access_token,
-        client_id: token.userId,
-      },
-    });
+    const result = await axiosInstance.post(
+      `${HOST}/auth/sign-out`,
+      token.userId,
+      {
+        headers: {
+          access_token: token.access_token,
+          client_id: token.userId,
+        },
+      }
+    );
     if (result.data.code === 200) {
       dispatch(setSignIn({}));
       dispatch(setCurrentUser(null));

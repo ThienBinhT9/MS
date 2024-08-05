@@ -1,0 +1,15 @@
+{
+  "likes": "like",
+  "comments": "Comments",
+  "see_more": "See more",
+  "hide_less": "Hide less",
+  "read_comment": "Write a comment...",
+  "actions": {
+    "report": "Report",
+    "unfollow": "Unfollow",
+    "add_to_trash": "Add to trash",
+    "add_to_favorites": "Add to favorites",
+    "about": "About this account",
+    "cancel": "Cancel"
+  }
+}

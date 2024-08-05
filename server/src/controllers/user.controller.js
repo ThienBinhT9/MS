@@ -27,11 +27,12 @@ class UserController {
       return res.status(500).json(error.message)
     }
   }
-
-  async setting(req, res) {
+  
+  async resetPassword(req, res){
     try {
+      const { newPassword, oldPassword, token, otp } = req.body
       const { keyUserId } = req.key
-      return res.status(200).json(await UserService.settings(keyUserId, req.body))
+      return res.status(200).json(await UserService.ResetPassword(token, otp, newPassword, oldPassword, keyUserId))
     } catch (error) {
       return res.status(500).json(error.message)
     }

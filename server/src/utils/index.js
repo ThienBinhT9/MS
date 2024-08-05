@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
 const lodash = require("lodash");
+const jwt = require("jsonwebtoken");
 
 const Key = require("../models/key.model");
 
@@ -11,7 +11,7 @@ const createTokens = (key, payload) => {
 
   const refresh_token = jwt.sign(payload, key, {
     algorithm: "RS256",
-    expiresIn: "360 days",
+    expiresIn: "30 days",
   });
 
   return { access_token, refresh_token };
@@ -47,5 +47,5 @@ module.exports = {
   createTokens,
   createKey,
   getInfoDataByObject,
-  getInfoDataByList,
+  getInfoDataByList
 };

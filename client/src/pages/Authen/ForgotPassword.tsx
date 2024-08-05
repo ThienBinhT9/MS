@@ -43,7 +43,7 @@ function ForgotPassword() {
   return (
     <div className="wrapper-auth">
       <div className="auth-inner">
-        <h2 className="auth-title-text">Forgot Password</h2>
+        <h2 className="auth-title-text">Quên mật khẩu</h2>
         <div className="auth-form">
           <Controller
             name="email"
@@ -52,10 +52,10 @@ function ForgotPassword() {
               <Input
                 onlyBottom
                 autoFocus
-                label="Your email"
+                label="Email của bạn"
                 value={value}
                 onChange={onChange}
-                placeholder="Enter your email"
+                placeholder="Nhập email của bạn"
                 message={errors.email?.message}
               />
             )}
@@ -63,14 +63,14 @@ function ForgotPassword() {
         </div>
         <div className="auth-submits">
           <Button className="auth-submit" onClick={() => navigate(-1)}>
-            Back
+            Trở về
           </Button>
           <Button
             primary
             className="auth-submit"
             onClick={handleSubmit(handleSend)}
           >
-            Send Email
+            Gủi Email
           </Button>
         </div>
       </div>

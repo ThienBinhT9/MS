@@ -57,7 +57,7 @@ function SignUp() {
   return (
     <div className="wrapper-auth">
       <div className="auth-inner">
-        <h2 className="auth-title-text">Sign Up</h2>
+        <h2 className="auth-title-text">Đăng kí</h2>
         <div className="auth-form">
           <Controller
             name="email"
@@ -69,7 +69,7 @@ function SignUp() {
                 label="Email"
                 value={value}
                 onChange={onChange}
-                placeholder="Enter email"
+                placeholder="Nhập email"
                 message={errors.email?.message}
               />
             )}
@@ -79,11 +79,11 @@ function SignUp() {
             control={control}
             render={({ field: { onChange, value } }) => (
               <Input
-                label="Password"
+                label="Mật khẩu"
                 onlyBottom
                 value={value}
                 onChange={onChange}
-                placeholder="Enter password"
+                placeholder="Nhập mật khẩu"
                 message={errors.password?.message}
                 type="password"
               />
@@ -94,11 +94,11 @@ function SignUp() {
             control={control}
             render={({ field: { onChange, value } }) => (
               <Input
-                label="Confirm Password"
+                label="Xác nhận mật khẩu"
                 onlyBottom
                 value={value}
                 onChange={onChange}
-                placeholder="Enter password"
+                placeholder="Nhập mật khẩu"
                 message={errors.confirmPassword?.message}
                 type="password"
               />
@@ -106,14 +106,14 @@ function SignUp() {
           />
         </div>
         <NavLink to="/auth/forgot-password" className="auth-forgot">
-          Forgot password?
+          Quên mật khẩu?
         </NavLink>
         <div className="auth-submits">
           <Button
             className="auth-submit"
             onClick={() => navigate("/auth/sign-in")}
           >
-            Sign In
+            Đăng nhập
           </Button>
           <Button
             primary
@@ -122,7 +122,7 @@ function SignUp() {
             className="auth-submit"
             onClick={handleSubmit(handleSignUp)}
           >
-            Sign Up
+            Đăng kí
           </Button>
         </div>
       </div>

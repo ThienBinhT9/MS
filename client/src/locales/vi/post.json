@@ -1,0 +1,13 @@
+{
+  "likes": "Lượt thích",
+  "comments": "Bình luận",
+  "read_comment": "Viết bình luận...",
+  "actions": {
+    "report": "Báo cáo",
+    "unfollow": "Bỏ theo dõi",
+    "add_to_trash": "Thêm vào thùng rác",
+    "add_to_favorites": "Thêm vào mục yêu thích",
+    "about": "Giới thiệu về tài khoản này",
+    "cancel": "Hủy"
+  }
+}

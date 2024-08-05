@@ -1,19 +1,27 @@
-import React, { useCallback, useEffect, useState } from "react";
+import dayjs from "dayjs";
+import React from "react";
+import lodash from "lodash";
 import * as Yup from "yup";
+import { useSelector, useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import dayjs from "dayjs";
 
 import "./AddInfo.scss";
-import { TEXT_REQUIRED_INPUT } from "../../constants/validate-constants.ts";
+import { RootState } from "../../redux/store.ts";
+import { createAxios } from "../../configs/token.config.ts";
 import { GENDER } from "../../constants/common-constants.ts";
+import { addInfo } from "../../services/user-service.ts";
+import { TEXT_REQUIRED_INPUT } from "../../constants/validate-constants.ts";
 
 import Input from "../../components/Input/index.tsx";
 import Select from "../../components/Select/index.tsx";
 import Button from "../../components/Button/index.tsx";
 import DatePicker from "../../components/DatePicker/index.tsx";
+import { useNavigate } from "react-router-dom";
 
 function AddInfo() {
+  const { token } = useSelector((state: RootState) => state.auth);
+
   const schemaForm = Yup.object().shape({
     dateOfBirth: Yup.date().required(TEXT_REQUIRED_INPUT("Date of birth")),
     firstName: Yup.string().required(TEXT_REQUIRED_INPUT("First name")),
@@ -41,10 +49,20 @@ function AddInfo() {
       dateOfBirth: undefined,
     },
     resolver: yupResolver(schemaForm),
+    mode: "onChange",
   });
 
-  const handleAddInfo = (data) => {
-    console.log({ data });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const instanceAxios = createAxios(token, dispatch);
+
+  const handleAddInfo = (data: any) => {
+    const _data = {
+      ...lodash.pickBy(data, lodash.identity),
+      isUpdateProfile: true,
+    };
+    addInfo(instanceAxios, _data, token, navigate, dispatch);
   };
 
   return (
@@ -66,6 +84,7 @@ function AddInfo() {
                       label="Họ"
                       value={value}
                       onChange={onChange}
+                      message={errors.firstName?.message}
                     />
                   )}
                 />
@@ -78,6 +97,7 @@ function AddInfo() {
                       label="Tên"
                       value={value}
                       onChange={onChange}
+                      message={errors.lastName?.message}
                     />
                   )}
                 />
@@ -102,10 +122,12 @@ function AddInfo() {
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <DatePicker
+                      placeholder="Sinh nhật của bạn"
                       require
                       value={value ? dayjs(value) : null}
                       label="Ngày sinh"
                       onChange={onChange}
+                      message={errors.dateOfBirth?.message}
                     />
                   )}
                 />
@@ -119,7 +141,8 @@ function AddInfo() {
                       options={GENDER}
                       label="Giới tính"
                       onChange={onChange}
-                      placeholder="-- Choose an options --"
+                      placeholder="-- Chọn giới tính --"
+                      message={errors.gender?.message}
                     />
                   )}
                 />

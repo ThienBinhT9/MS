@@ -1,10 +1,12 @@
 import axios from "axios";
-import { jwtDecode, JwtPayload } from "jwt-decode";
-
-import { refreshToken } from "../services/auth-service.ts";
-import { setSignIn } from "../redux/auth-slice.ts";
 import { Dispatch } from "react";
 import { UnknownAction } from "redux";
+import { toast } from "react-toastify";
+import { jwtDecode, JwtPayload } from "jwt-decode";
+
+import { setSignIn } from "../redux/auth-slice.ts";
+import { setCurrentUser } from "../redux/user-slice.ts";
+import { refreshToken } from "../services/auth-service.ts";
 
 interface IToken {
   access_token: string;
@@ -24,12 +26,22 @@ export const createAxios = (
     const decode_token: JwtPayload = jwtDecode<JwtPayload>(tokens.access_token);
     if (decode_token.exp && decode_token.exp < date.getTime() / 1000) {
       const _tokens = await refreshToken(tokens.refresh_token, tokens.userId);
-      dispatch(setSignIn(_tokens));
+      if (_tokens.code !== 200) {
+        dispatch(setSignIn({}));
+        dispatch(setCurrentUser(null));
+        toast("Vui lòng đăng nhập lại", { type: "info" });
+      } else
+        dispatch(
+          setSignIn({
+            ..._tokens.metadata,
+            userId: tokens.userId,
+          })
+        );
 
       config.headers = {
         client_id: tokens.userId,
-        access_token: _tokens.access_token,
-        refresh_token: _tokens.refresh_token,
+        access_token: _tokens.metadata.access_token,
+        refresh_token: _tokens.metadata.refresh_token,
       } as any;
     }
 

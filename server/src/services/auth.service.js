@@ -1,15 +1,17 @@
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
+const dotenv = require("dotenv");
 
 const {
-  findUserByEmail,
-  deleteUserById,
   findUserById,
+  deleteUserById,
+  findUserByEmail,
 } = require("../models/repo/user.repo");
 const { createTokens, createKey } = require("../utils");
 
-const User = require("../models/user.model");
 const Key = require("../models/key.model");
+const User = require("../models/user.model");
+dotenv.config()
 class AuthService {
   async signUp({ email, password }) {
     try {

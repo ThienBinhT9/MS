@@ -27,8 +27,12 @@ import ThreeDotLoader from "../../../components/Loading/ThreeDot.tsx";
 
 function Header() {
   const { token, loading } = useSelector((state: RootState) => state.auth);
+  const { currentUser } = useSelector((state: RootState) => state.user);
+  console.log({ currentUser });
+
   const isMobileScreen = useMediaQuery({ maxWidth: 768 });
   const isTabletScreen = useMediaQuery({ maxWidth: 1024 });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -143,10 +147,7 @@ function Header() {
                 arrow={{ pointAtCenter: true }}
               >
                 <div className="header-nav-item--more">
-                  <img
-                    src="https://i.pinimg.com/564x/8f/5a/90/8f5a90b9dbf868baf53fc990cde10e6e.jpg"
-                    alt="avatar"
-                  />
+                  <img src={currentUser?.avatar} alt="avatar" />
                 </div>
               </Dropdown>
             </div>

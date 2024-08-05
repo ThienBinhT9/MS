@@ -82,9 +82,10 @@ const userSchema = new Schema(
     avatar: {
       type: String,
       default:
-        "https://i.pinimg.com/564x/fa/bc/c4/fabcc4fb39e3002fb5c812cef98e59ae.jpg",
+        "https://inkythuatso.com/uploads/thumbnails/800/2023/03/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg",
     },
     privacy: { type: privacySchema, default: {} },
+    isVerified: { type: Boolean, default: false },
     isUpdateProfile: { type: Boolean, default: false },
   },
   {

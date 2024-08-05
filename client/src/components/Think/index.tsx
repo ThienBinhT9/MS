@@ -10,18 +10,19 @@ import "./Think.scss";
 
 import Input from "../Input/index.tsx";
 import Button from "../Button/index.tsx";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store.ts";
+import { Link } from "react-router-dom";
 
 function Think() {
+  const { currentUser } = useSelector((state: RootState) => state.user);
   return (
     <div className="home-your-thought">
       <div className="your-thought-top">
-        <div className="your-thought-avatar">
-          <img
-            src="https://i.pinimg.com/564x/ab/69/4f/ab694f8e0555c4aa475469e6b141dd17.jpg"
-            alt="avatar"
-          />
-        </div>
-        <Input placeholder="What in your mind?" />
+        <Link to="/profile" className="your-thought-avatar">
+          <img src={currentUser?.avatar} alt="avatar" />
+        </Link>
+        <Input placeholder="Bạn đang nghĩ gì?" />
       </div>
       <Divider style={{ margin: "12px 0", backgroundColor: "#e2e2e2" }} />
       <div className="your-thought-bottom">
@@ -30,7 +31,7 @@ function Think() {
           className="your-thought-item"
           icon={<VideoCameraTwoTone twoToneColor="#FF0000" />}
         >
-          Live
+          Phát trực tiếp
         </Button>
         <Button
           text
