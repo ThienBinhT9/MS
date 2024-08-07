@@ -23,7 +23,7 @@ export const signIn = async (
       const { access_token, refresh_token, _id, ...userData } =
         result.data.metadata;
       dispatch(setSignIn({ access_token, refresh_token, userId: _id }));
-      dispatch(setCurrentUser(userData));
+      dispatch(setCurrentUser({ ...userData, _id }));
       return navigate("/");
     }
     toast(result?.data?.message, { type: "error" });
@@ -46,7 +46,7 @@ export const signUp = async (
       const { access_token, refresh_token, _id, ...dataUser } =
         result.data.metadata;
       dispatch(setSignUp({ access_token, refresh_token, userId: _id }));
-      dispatch(setCurrentUser(dataUser));
+      dispatch(setCurrentUser({ ...dataUser, _id }));
       return navigate("/");
     }
     toast(result?.data?.message, { type: "error" });

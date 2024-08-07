@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
-import { CaretDownOutlined, PlusOutlined, EditFilled } from "@ant-design/icons";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Avatar, Dropdown, MenuProps, Divider, Menu } from "antd";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { CaretDownOutlined, PlusOutlined, EditFilled } from "@ant-design/icons";
 
 import "./Profile.scss";
+import { RootState } from "../../redux/store.ts";
+import { getQueryParams } from "../../utils/index.ts";
+import { getInfo } from "../../services/user-service.ts";
 
 import Button from "../../components/Button/index.tsx";
+import { createAxios } from "../../configs/token.config.ts";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -36,25 +41,41 @@ const optionsNavMobile: MenuItem[] = [
 ];
 
 function Profile() {
+  const { currentUser, loading } = useSelector(
+    (state: RootState) => state.user
+  );
+  const { token } = useSelector((state: RootState) => state.auth);
+
+  const { pathname, search } = useLocation();
+  const { id } = getQueryParams(search);
+  const [host, params] = pathname.split("/").filter((item) => !!item && item);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const axiosInstance = createAxios(token, dispatch);
+
+  const [user, setUser] = useState(null);
+
   let optionNav: MenuItem[] = [
     {
-      label: <NavLink to="">Bài viết</NavLink>,
+      label: <NavLink to={`/profile?id=${id}`}>Bài viết</NavLink>,
       key: "",
       className: "profile-header-nav-item",
     },
     {
-      label: <NavLink to="about">Giới thiệu</NavLink>,
+      label: <NavLink to={`/profile/about?id=${id}`}>Giới thiệu</NavLink>,
       key: "about",
       className: "profile-header-nav-item",
     },
     {
-      label: <NavLink to="friends">Bạn bè</NavLink>,
+      label: <NavLink to={`/profile/friends?id=${id}`}>Bạn bè</NavLink>,
       key: "friends",
       className: "profile-header-nav-item",
     },
     {
       key: "picture",
-      label: <NavLink to="picture">Ảnh</NavLink>,
+      label: <NavLink to={`/profile/picture?id=${id}`}>Ảnh</NavLink>,
       className: "profile-header-nav-item",
     },
     {
@@ -68,11 +89,8 @@ function Profile() {
       children: optionsNavMobile,
     },
   ];
-  const { pathname } = useLocation();
-  const width520 = useMediaQuery({ maxWidth: 520 });
-  const [host, params] = pathname.split("/").filter((item) => !!item && item);
 
-  if (width520) {
+  if (useMediaQuery({ maxWidth: 520 })) {
     optionNav.pop();
     optionNav = [...optionNav, ...optionsNavMobile];
   }
@@ -83,6 +101,18 @@ function Profile() {
       behavior: "smooth",
     });
   }, [params, host]);
+
+  useEffect(() => {
+    if (!id) navigate(`/profile?id=${currentUser?._id}`);
+  }, [currentUser, navigate, id]);
+
+  useEffect(() => {
+    const fetchInfoUser = async () => {
+      const result = await getInfo(axiosInstance, id, token, dispatch);
+      if (result) setUser(result);
+    };
+    fetchInfoUser();
+  }, [id]);
 
   return (
     <div className="wrapper-profile">

@@ -13,14 +13,14 @@ const Key = require("../models/key.model");
 const User = require("../models/user.model");
 dotenv.config()
 class AuthService {
-  async signUp({ email, password }) {
+  async signUp({ email, password, ...fields }) {
     try {
       const findUserEmail = await findUserByEmail(email);
       if (findUserEmail) return { code: 401, message: "Email has been used!" };
 
       const hashed_password = await bcrypt.hash(password, 10);
 
-      const new_user = await User.create({ email, password: hashed_password });
+      const new_user = await User.create({ email, password: hashed_password, ...fields });
       if (!new_user) return { code: 400, message: "Account creation failed!" };
 
       const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {

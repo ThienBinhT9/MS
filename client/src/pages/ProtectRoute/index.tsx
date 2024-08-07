@@ -11,11 +11,11 @@ function ProtectRoute() {
 
   useEffect(() => {
     if (!token.access_token) navigate("/auth/sign-in");
-  }, [token, navigate, currentUser]);
+  }, [token, navigate]);
 
   useEffect(() => {
-    currentUser && !currentUser?.isUpdateProfile && navigate("/add-info");
-  }, [currentUser, navigate]);
+    if (token.access_token && !currentUser?.isVerified) navigate("/verify");
+  }, [navigate, currentUser, token]);
 
   return <Outlet />;
 }

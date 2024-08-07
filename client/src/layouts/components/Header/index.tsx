@@ -28,7 +28,6 @@ import ThreeDotLoader from "../../../components/Loading/ThreeDot.tsx";
 function Header() {
   const { token, loading } = useSelector((state: RootState) => state.auth);
   const { currentUser } = useSelector((state: RootState) => state.user);
-  console.log({ currentUser });
 
   const isMobileScreen = useMediaQuery({ maxWidth: 768 });
   const isTabletScreen = useMediaQuery({ maxWidth: 1024 });
@@ -53,7 +52,9 @@ function Header() {
 
   const items: MenuProps["items"] = [
     {
-      label: <NavLink to="/profile">Trang cá nhân</NavLink>,
+      label: (
+        <NavLink to={`/profile?id=${currentUser?._id}`}>Trang cá nhân</NavLink>
+      ),
       key: "0",
       icon: <UserOutlined />,
     },

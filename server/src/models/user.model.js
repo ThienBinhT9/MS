@@ -57,7 +57,7 @@ const userSchema = new Schema(
   {
     password: { type: String, require: true },
     email: { type: String, require: true },
-    gender: { type: Number, default: null },
+    gender: { type: Number, default: undefined },
     phone: { type: String, default: "" },
     bio: { type: String, default: "" },
     lastName: { type: String, default: "" },
@@ -86,7 +86,6 @@ const userSchema = new Schema(
     },
     privacy: { type: privacySchema, default: {} },
     isVerified: { type: Boolean, default: false },
-    isUpdateProfile: { type: Boolean, default: false },
   },
   {
     timestamps: true,

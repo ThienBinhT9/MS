@@ -16,7 +16,7 @@ function ThreeDotLoader(props: Props) {
         height="80"
         width="80"
         radius="9"
-        color="#ffdab9"
+        color="rgb(119, 136, 153)"
         ariaLabel="three-dots-loading"
       />
     </div>

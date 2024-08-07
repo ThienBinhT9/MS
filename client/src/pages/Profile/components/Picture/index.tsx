@@ -23,9 +23,9 @@ function Picture() {
       }
     >
       <div className="wrapper-picture">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 8].map((item) => {
+        {[1, 2, 3, 4, 5, 6, 7, 8, 8].map((item, index) => {
           return (
-            <div className="picture-item">
+            <div className="picture-item" key={index}>
               <Dropdown menu={{ items }} placement="bottomLeft" arrow>
                 <EditFilled className="picture-item-edit" />
               </Dropdown>

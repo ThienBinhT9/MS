@@ -16,10 +16,14 @@ import { Link } from "react-router-dom";
 
 function Think() {
   const { currentUser } = useSelector((state: RootState) => state.user);
+
   return (
     <div className="home-your-thought">
       <div className="your-thought-top">
-        <Link to="/profile" className="your-thought-avatar">
+        <Link
+          to={`/profile?id=${currentUser?._id}`}
+          className="your-thought-avatar"
+        >
           <img src={currentUser?.avatar} alt="avatar" />
         </Link>
         <Input placeholder="Bạn đang nghĩ gì?" />
@@ -31,7 +35,7 @@ function Think() {
           className="your-thought-item"
           icon={<VideoCameraTwoTone twoToneColor="#FF0000" />}
         >
-          Phát trực tiếp
+          Trực tiếp
         </Button>
         <Button
           text

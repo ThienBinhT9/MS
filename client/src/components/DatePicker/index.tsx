@@ -1,8 +1,8 @@
 import React from "react";
+import dayjs from "dayjs";
 import { DatePicker, DatePickerProps } from "antd";
 
 import "./DatePicker.scss";
-
 interface Props extends DatePickerProps {
   label?: string;
   message?: string;
@@ -19,7 +19,11 @@ function DatePickerCustom(props: Props) {
           {require && <span style={{ color: "red" }}>*</span>}
         </label>
       )}
-      <DatePicker className={`form-datepicker`} {...passProps} />
+      <DatePicker
+        className={`form-datepicker`}
+        maxDate={dayjs()}
+        {...passProps}
+      />
       {message && <span className="form-error">{message}</span>}
     </div>
   );
