@@ -1,0 +1,41 @@
+.wrapper-collapse-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .collapse-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.wrapper-collapse-content {
+  .collapse-content-input {
+    border: none;
+    border-radius: 0;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgb(119, 136, 153);
+    width: 100%;
+
+    .ant-select-selector {
+      border: none;
+      background-color: transparent;
+      box-shadow: none !important;
+      min-height: 50px;
+    }
+  }
+  .collapse-content-actions {
+    display: flex;
+    justify-content: space-between;
+
+    .collapse-content-action-left,
+    .collapse-content-action-right {
+      display: flex;
+      gap: 12px;
+    }
+  }
+
+  .select-status {
+    border: none;
+  }
+}

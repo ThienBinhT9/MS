@@ -4,16 +4,6 @@ const mongoosePaginate = require("mongoose-paginate-v2");
 
 const privacySchema = new Schema(
   {
-    bio: {
-      type: String,
-      enum: ["public", "friends", "private"],
-      default: "friends",
-    },
-    gender: {
-      type: String,
-      enum: ["public", "friends", "private"],
-      default: "private",
-    },
     phone: {
       type: String,
       enum: ["public", "friends", "private"],
@@ -53,6 +43,27 @@ const privacySchema = new Schema(
   { _id: false }
 );
 
+const settings = new Schema(
+  {
+    friend: {
+      type: String,
+      enum: ["public", "friends", "private"],
+      default: "public",
+    },
+    language: {
+      type: String,
+      enum: ["en", "vi"],
+      default: "vi",
+    },
+    mode: {
+      type: String,
+      enum: ["light", "dark"],
+      default: "light",
+    },
+  },
+  { _id: false }
+);
+
 const userSchema = new Schema(
   {
     password: { type: String, require: true },
@@ -85,6 +96,7 @@ const userSchema = new Schema(
         "https://inkythuatso.com/uploads/thumbnails/800/2023/03/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg",
     },
     privacy: { type: privacySchema, default: {} },
+    settings: { type: settings, default: {} },
     isVerified: { type: Boolean, default: false },
   },
   {

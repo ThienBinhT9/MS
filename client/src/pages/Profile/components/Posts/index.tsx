@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Collapse, CollapseProps, Image, Input } from "antd";
+import React from "react";
 import StickyBox from "react-sticky-box";
+import { useSelector } from "react-redux";
+import { Collapse, CollapseProps, Image, Input } from "antd";
 import {
   ReadFilled,
   HomeFilled,
@@ -10,12 +11,16 @@ import {
 } from "@ant-design/icons";
 
 import "./Posts.scss";
+import { RootState } from "../../../../redux/store.ts";
+import { usePermission } from "../../../../hooks/usePermission.tsx";
 
 import Post from "../../../../components/Post/index.tsx";
 import Think from "../../../../components/Think/index.tsx";
 import Button from "../../../../components/Button/index.tsx";
 import BarUser from "../../../../components/BarUser/index.tsx";
 import SectionWrapper from "../../../../components/SectionWrapper/index.tsx";
+import { useLocation } from "react-router-dom";
+import { getQueryParams } from "../../../../utils/index.ts";
 
 const items: CollapseProps["items"] = [
   {
@@ -47,6 +52,15 @@ const items: CollapseProps["items"] = [
 ];
 
 function Posts() {
+  const { client } = useSelector((state: RootState) => state.user);
+
+  const { search } = useLocation();
+  const { id } = getQueryParams(search);
+
+  const { isView: isViewAddBiography } = usePermission("AddBiography");
+  const { isView: isViewDetailedEditing } = usePermission("DetailedEditing");
+  const { isView: isViewThink } = usePermission("Think");
+
   return (
     <div className="wrapper-posts">
       <div className="posts-left">
@@ -54,32 +68,48 @@ function Posts() {
           <div className="posts-content-left">
             <SectionWrapper title="Giới thiệu">
               <div className="posts-introduce">
-                <Collapse
-                  items={items}
-                  expandIcon={() => <EditTwoTone twoToneColor="#ffffff" />}
-                  style={{
-                    backgroundColor: "rgb(119, 136, 153)",
-                  }}
-                />
-                <div className="posts-introduce-item">
-                  <HomeFilled />
-                  <p>Đến từ Từ Sơn</p>
-                </div>
-                <div className="posts-introduce-item">
-                  <InstagramOutlined />
-                  <p>pongcoat_3</p>
-                </div>
-                <div className="posts-introduce-item">
-                  <HeartFilled />
-                  <p>Hẹn hò</p>
-                </div>
-                <div className="posts-introduce-item">
-                  <ReadFilled />
-                  <p>Đại học Công nghiệp Hà Nội</p>
-                </div>
-                <Button primary className="add-biography" to="about">
-                  Chỉnh sửa chi tiết
-                </Button>
+                {isViewAddBiography && (
+                  <Collapse
+                    items={items}
+                    expandIcon={() => <EditTwoTone twoToneColor="#ffffff" />}
+                    style={{
+                      backgroundColor: "rgb(119, 136, 153)",
+                    }}
+                  />
+                )}
+                {client?.homeTown && (
+                  <div className="posts-introduce-item">
+                    <HomeFilled />
+                    <p>Đến từ {client?.homeTown}</p>
+                  </div>
+                )}
+                {client?.link && (
+                  <div className="posts-introduce-item">
+                    <InstagramOutlined />
+                    <p>{client?.link}</p>
+                  </div>
+                )}
+                {client?.relationship && (
+                  <div className="posts-introduce-item">
+                    <HeartFilled />
+                    <p>{client?.relationship}</p>
+                  </div>
+                )}
+                {client?.university && (
+                  <div className="posts-introduce-item">
+                    <ReadFilled />
+                    <p>Học tại {client?.university}</p>
+                  </div>
+                )}
+                {isViewDetailedEditing && (
+                  <Button
+                    primary
+                    className="add-biography"
+                    to={`/profile/about?id=${id}`}
+                  >
+                    Chỉnh sửa chi tiết
+                  </Button>
+                )}
               </div>
             </SectionWrapper>
             <SectionWrapper
@@ -129,7 +159,7 @@ function Posts() {
         </StickyBox>
       </div>
       <div className="posts-right">
-        <Think />
+        {isViewThink && <Think />}
         <div className="post-right-list">
           <Post />
           <Post />

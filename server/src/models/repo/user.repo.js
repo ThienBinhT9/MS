@@ -1,7 +1,5 @@
 const User = require("../user.model");
 
-const {getInfoDataByList} = require("../../utils")
-
 const findUserById = async (id) => {
   return await User.findById(id).lean();
 };

@@ -47,5 +47,5 @@ module.exports = {
   createTokens,
   createKey,
   getInfoDataByObject,
-  getInfoDataByList
+  getInfoDataByList,
 };

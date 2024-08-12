@@ -6,7 +6,7 @@ import { NavigateFunction } from "react-router-dom";
 
 import { IParamsLogin, IParamsRegister } from "../interfaces/auth-interface.ts";
 import { setLoading, setSignIn, setSignUp } from "../redux/auth-slice.ts";
-import { setCurrentUser } from "../redux/user-slice.ts";
+import { setClient, setCurrentUser } from "../redux/user-slice.ts";
 import { ITokens } from "../interfaces/common-interface.ts";
 
 const HOST = "http://localhost:8000";
@@ -78,6 +78,7 @@ export const signOut = async (
     if (result.data.code === 200) {
       dispatch(setSignIn({}));
       dispatch(setCurrentUser(null));
+      dispatch(setClient(null));
       return navigate("/auth/sign-in");
     }
     toast(result?.data?.message, { type: "error" });

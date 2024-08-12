@@ -1,11 +1,12 @@
 import { Dispatch } from "react";
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { UnknownAction } from "redux";
 import { toast } from "react-toastify";
 import { NavigateFunction } from "react-router-dom";
 
-import { setLoading, setCurrentUser } from "../redux/user-slice.ts";
+import { setLoading, setCurrentUser, setClient } from "../redux/user-slice.ts";
 import { ITokens } from "../interfaces/common-interface.ts";
+import { getNumberOfFriends } from "./friend-service.ts";
 
 const HOST = "http://localhost:8000";
 
@@ -51,8 +52,7 @@ export const getInfo = async (
       },
     });
     if (result.data.code === 200) {
-      if (id === result.data.metadata._id)
-        dispatch(setCurrentUser(result.data.metadata));
+      dispatch(setClient(result.data.metadata));
       return result.data.metadata;
     }
     toast(result?.data?.message, { type: "error" });

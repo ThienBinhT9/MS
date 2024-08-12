@@ -9,9 +9,11 @@ import "./Profile.scss";
 import { RootState } from "../../redux/store.ts";
 import { getQueryParams } from "../../utils/index.ts";
 import { getInfo } from "../../services/user-service.ts";
+import { getNumberOfFriends } from "../../services/friend-service.ts";
 
 import Button from "../../components/Button/index.tsx";
 import { createAxios } from "../../configs/token.config.ts";
+import { usePermission } from "../../hooks/usePermission.tsx";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -41,7 +43,7 @@ const optionsNavMobile: MenuItem[] = [
 ];
 
 function Profile() {
-  const { currentUser, loading } = useSelector(
+  const { currentUser, client, loading } = useSelector(
     (state: RootState) => state.user
   );
   const { token } = useSelector((state: RootState) => state.auth);
@@ -53,9 +55,10 @@ function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const axiosInstance = createAxios(token, dispatch);
+  const { isView: EditProfile } = usePermission("EditProfile");
+  const { isView: CreateArticles } = usePermission("CreateArticles");
 
-  const [user, setUser] = useState(null);
+  const axiosInstance = createAxios(token, dispatch);
 
   let optionNav: MenuItem[] = [
     {
@@ -107,11 +110,7 @@ function Profile() {
   }, [currentUser, navigate, id]);
 
   useEffect(() => {
-    const fetchInfoUser = async () => {
-      const result = await getInfo(axiosInstance, id, token, dispatch);
-      if (result) setUser(result);
-    };
-    fetchInfoUser();
+    id && getInfo(axiosInstance, id, token, dispatch);
   }, [id]);
 
   return (
@@ -130,25 +129,32 @@ function Profile() {
                 <Avatar
                   size={150}
                   style={{ cursor: "pointer" }}
-                  src="https://i.pinimg.com/564x/ab/69/4f/ab694f8e0555c4aa475469e6b141dd17.jpg"
+                  src={client?.avatar}
                 />
               </Dropdown>
               <div className="profile-author">
-                <p className="profile-name">Đỗ Hoài Phong</p>
-                <span className="profile-friend">364 Bạn bè</span>
+                <p className="profile-name">
+                  {client?.firstName} {client?.lastName}
+                </p>
+
+                <span className="profile-friend">0 Bạn bè</span>
               </div>
             </div>
             <div className="header-info-right">
-              <Button
-                primary
-                icon={<PlusOutlined />}
-                className="info-right-item"
-              >
-                Tạo bài viết
-              </Button>
-              <Button className="info-right-item" icon={<EditFilled />}>
-                Chỉnh sửa trang cá nhân
-              </Button>
+              {CreateArticles && (
+                <Button
+                  primary
+                  icon={<PlusOutlined />}
+                  className="info-right-item"
+                >
+                  Tạo bài viết
+                </Button>
+              )}
+              {EditProfile && (
+                <Button className="info-right-item" icon={<EditFilled />}>
+                  Chỉnh sửa trang cá nhân
+                </Button>
+              )}
             </div>
           </div>
           <Divider style={{ backgroundColor: "#eaeaea", marginBottom: 0 }} />

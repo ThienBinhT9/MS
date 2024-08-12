@@ -1,43 +1,69 @@
 import React from "react";
 import { Tabs } from "antd";
+import { useSelector } from "react-redux";
 
 import "./About.scss";
+import { RootState } from "../../../../redux/store.ts";
+import { getLocation } from "../../../../services/common-service.ts";
+import { RELATIONSHIP } from "../../../../constants/common-constants.ts";
 
 import Collapse from "../../../../components/Collapse/index.tsx";
+import CollapseInput from "../../../../components/CollapseInput/index.tsx";
+import CollapseSelect from "../../../../components/CollapseSelect/index.tsx";
 
 function Overview() {
+  const { client } = useSelector((state: RootState) => state.user);
+  console.log({ client });
+
   return (
     <div className="wrapper-about-overview">
       <div className="about-section">
-        <Collapse
-          title="Hà Nội"
-          subTitle="Tỉnh/Thành phố hiện tại"
-          placeholder="Nơi ở hiện tại"
-          select
-        />
-        <Collapse
-          title="Từ Sơn"
-          subTitle="Quê quán"
-          placeholder="Quê quán của bạn"
-          select
-        />
-        <Collapse
-          title="Độc Thân"
-          subTitle="Mối quan hệ"
-          placeholder="Nơi ở hiện tại"
-          select
-        />
-        <Collapse
-          title="0969975192"
-          subTitle="Số di động"
-          placeholder="Số di động của bạn"
-        />
+        {true && (
+          <CollapseSelect
+            title={client?.currentResidence}
+            subTitle="Tỉnh/Thành đang sống hiện tại"
+            name="currentResidence"
+            state={client?.privacy?.currentResidence}
+            search
+            fetchData={getLocation}
+          />
+        )}
+        {client?.homeTown && (
+          <CollapseSelect
+            title={client?.homeTown}
+            subTitle="Quê quán"
+            name="homeTown"
+            state={client?.privacy?.homeTown}
+            search
+            fetchData={getLocation}
+          />
+        )}
+        {client?.phone && (
+          <CollapseInput
+            title={client?.phone}
+            subTitle="Số điện thoại"
+            placeholder="Số điện thoại của bạn"
+            name="phone"
+            state={client?.privacy?.phone}
+          />
+        )}
+        {client?.relationship && (
+          <CollapseSelect
+            title={client?.relationship}
+            subTitle="Mối quan hệ"
+            name="relationship"
+            state={client?.privacy?.relationship}
+            options={RELATIONSHIP}
+          />
+        )}
       </div>
     </div>
   );
 }
 
 function Job() {
+  const { client } = useSelector((state: RootState) => state.user);
+
   return (
     <div className="wrapper-about-job">
       <div className="about-section">

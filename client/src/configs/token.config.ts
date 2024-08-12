@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
 import { setSignIn } from "../redux/auth-slice.ts";
-import { setCurrentUser } from "../redux/user-slice.ts";
+import { setClient, setCurrentUser } from "../redux/user-slice.ts";
 import { refreshToken } from "../services/auth-service.ts";
 
 interface IToken {
@@ -29,6 +29,7 @@ export const createAxios = (
       if (_tokens.code !== 200) {
         dispatch(setSignIn({}));
         dispatch(setCurrentUser(null));
+        dispatch(setClient(null));
         toast("Vui lòng đăng nhập lại", { type: "info" });
       } else
         dispatch(

@@ -11,7 +11,9 @@ route.post("/cancel", VerificationByAccessToken, FriendShipController.cancel)
 
 route.post("/cancelRequest", VerificationByAccessToken, FriendShipController.cancelRequest)
 
-route.get("/mutualCount", VerificationByAccessToken, FriendShipController.getMutualFriendsCount)
+route.get("/mutualCount/:friendId", VerificationByAccessToken, FriendShipController.getMutualFriendsCount)
+
+route.get("/numberOfFriend/:friendId", VerificationByAccessToken, FriendShipController.getNumberOfFriend)
 
 route.get("/search", VerificationByAccessToken, FriendShipController.searchFriends)
 

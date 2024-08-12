@@ -1,4 +1,9 @@
-const { areFriends, addFriends, getList } = require("../models/repo/friendShip.repo");
+const {
+  areFriends,
+  addFriends,
+  getList,
+} = require("../models/repo/friendShip.repo");
+const { findUserById } = require("../models/repo/user.repo");
 const FriendShip = require("../models/friendship.model");
 
 class FriendShipService {
@@ -112,52 +117,81 @@ class FriendShipService {
     }
   }
 
+  async getNumberOfFriend(client_id, user_id) {
+    try {
+      const _user = await findUserById(user_id);
+      if (!_user) return { code: 404, message: "Account does not exist" };
+
+      const { friend } = _user.settings;
+
+      const count = await FriendShip.countDocuments({
+        user: user_id,
+        status: "accepted",
+      }).exec();
+
+      if (friend === "public" || client_id.toString() === user_id)
+        return { code: 200, metadata: count };
+
+      if (friend === "friend" && (await areFriends(user_id, client_id)))
+        return { code: 200, metadata: count };
+
+      if (friend === "private" && client_id.toString() === user_id)
+        return { code: 200, metadata: count };
+
+      return { code: 401, message: "Bạn không có quyền!" };
+    } catch (error) {
+      return { code: 500, message: error.message };
+    }
+  }
+
   async searchFriend(client_id, query, page = 1) {
     try {
-      const _query = { user:client_id, status:"accepted" }
-      const regex = new RegExp(query, 'i'); 
+      const _query = { user: client_id, status: "accepted" };
+      const regex = new RegExp(query, "i");
 
       const options = {
         page,
-        limit:20,
-      }
+        limit: 20,
+      };
 
       const aggregateQuery = FriendShip.aggregate([
         { $match: _query },
         {
           $lookup: {
-            from: 'user', // Tên collection của bảng User
-            localField: 'friend',
-            foreignField: '_id',
-            as: 'friendDetails'
-          }
+            from: "user", // Tên collection của bảng User
+            localField: "friend",
+            foreignField: "_id",
+            as: "friendDetails",
+          },
         },
-        { $unwind: '$friendDetails' },
+        { $unwind: "$friendDetails" },
         {
           $match: {
             $or: [
-              { 'friendDetails.firstName': regex },
-              { 'friendDetails.lastName': regex },
-              { 'friendDetails.homeTown': regex }
-            ]
-          }
+              { "friendDetails.firstName": regex },
+              { "friendDetails.lastName": regex },
+              { "friendDetails.homeTown": regex },
+            ],
+          },
         },
         {
           $project: {
             user: 1,
             friend: 1,
             status: 1,
-            'friendDetails.firstName': 1,
-            'friendDetails.lastName': 1,
-            'friendDetails.avatar': 1
-          }
-        }
-    ]);
+            "friendDetails.firstName": 1,
+            "friendDetails.lastName": 1,
+            "friendDetails.avatar": 1,
+          },
+        },
+      ]);
 
-    const paginatedResults = await FriendShip.aggregatePaginate(aggregateQuery, options);
-    
-    return { code: 200, metadata: paginatedResults };
+      const paginatedResults = await FriendShip.aggregatePaginate(
+        aggregateQuery,
+        options
+      );
 
+      return { code: 200, metadata: paginatedResults };
     } catch (error) {
       return { code: 500, message: error.message };
     }
@@ -165,16 +199,17 @@ class FriendShipService {
 
   async getListFriend(client_id, page) {
     try {
-      const query = { user:client_id, status:"accepted" }
+      const query = { user: client_id, status: "accepted" };
       const data = await getList({
         page,
         query,
         populate: {
-          path:"friend", select:"firstName lastName avatar"
-        }
-      })
+          path: "friend",
+          select: "firstName lastName avatar",
+        },
+      });
 
-      return { code:200, metadata:data }
+      return { code: 200, metadata: data };
     } catch (error) {
       return { code: 500, message: error.message };
     }

@@ -44,8 +44,18 @@ class FriendShipController{
     async getMutualFriendsCount(req, res){
         try {
             const { keyUserId } = req.key
-            const { friendId } = req.body
+            const { friendId } = req.params
             return res.status(200).json(await FriendShipService.getMutualFriendsCount(keyUserId, friendId))
+        } catch (error) {
+            return res.status(500).json(error.message)
+        }
+    }
+
+    async getNumberOfFriend(req, res){
+        try {
+            const { keyUserId } = req.key
+            const { friendId } = req.params
+            return res.status(200).json(await FriendShipService.getNumberOfFriend(keyUserId, friendId))
         } catch (error) {
             return res.status(500).json(error.message)
         }

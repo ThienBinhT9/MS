@@ -19,3 +19,13 @@
   box-shadow: none;
   border: none;
 }
+
+.danger {
+  background-color: var(--red-color) !important;
+}
+
+.disabled {
+  background-color: #c3c3c3 !important;
+  pointer-events: none;
+  border: none;
+}
