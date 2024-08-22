@@ -16,6 +16,11 @@ export interface IParamsForgotPassword {
   email: string;
 }
 
+export interface IParamsResetPassword {
+  password: string;
+  otp: string;
+}
+
 export interface IAuthState {
   token: {
     userId: string;

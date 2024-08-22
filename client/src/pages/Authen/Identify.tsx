@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
-import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./Authen.scss";
+import { RootState } from "../../redux/store.ts";
+import { identify } from "../../services/user-service.ts";
+import { sendBaseOTP } from "../../services/mailer-service.ts";
 import { IParamsForgotPassword } from "../../interfaces/auth-interface.ts";
 import {
   REGEX_EMAIL,
@@ -15,8 +19,13 @@ import {
 import Input from "../../components/Input/index.tsx";
 import Button from "../../components/Button/index.tsx";
 
-function ForgotPassword() {
+function Identify() {
+  const { loading } = useSelector((state: RootState) => state.user);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [loadingOTP, setLoadingOTP] = useState(false);
 
   const schemaForm = Yup.object().shape({
     email: Yup.string()
@@ -35,16 +44,24 @@ function ForgotPassword() {
     resolver: yupResolver(schemaForm),
   });
 
-  const handleSend = (values: IParamsForgotPassword) => {
-    const { email } = values;
-    console.log({ email });
+  const handleSend = async (values: IParamsForgotPassword) => {
+    const result = await identify(values, dispatch);
+    if (result?.code === 200) {
+      setLoadingOTP(true);
+      const resultOTP = await sendBaseOTP(values);
+      setLoadingOTP(false);
+      return navigate(
+        `/auth/reset-password?token=${resultOTP?.metadata?.data}&email=${values.email}`
+      );
+    }
   };
 
   return (
     <div className="wrapper-auth">
       <div className="auth-inner">
-        <h2 className="auth-title-text">Quên mật khẩu</h2>
+        <h2 className="auth-title-text">Tìm tài khoản</h2>
         <div className="auth-form">
+          <p>Vui lòng nhập email để tìm kiếm tài khoản của bạn.</p>
           <Controller
             name="email"
             control={control}
@@ -52,7 +69,7 @@ function ForgotPassword() {
               <Input
                 onlyBottom
                 autoFocus
-                label="Email của bạn"
+                label="Email"
                 value={value}
                 onChange={onChange}
                 placeholder="Nhập email của bạn"
@@ -67,10 +84,11 @@ function ForgotPassword() {
           </Button>
           <Button
             primary
+            loading={loading || loadingOTP}
             className="auth-submit"
             onClick={handleSubmit(handleSend)}
           >
-            Gủi Email
+            Tiếp tục
           </Button>
         </div>
       </div>
@@ -78,4 +96,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default Identify;

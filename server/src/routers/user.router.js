@@ -10,6 +10,7 @@ route.patch("/update", VerificationByAccessToken, UserController.updateUser);
 
 route.patch("/reset-password", VerificationByAccessToken, UserController.resetPassword);
 
+route.post("/identify", UserController.identify);
 
 
 

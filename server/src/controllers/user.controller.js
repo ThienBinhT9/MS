@@ -27,6 +27,15 @@ class UserController {
       return res.status(500).json(error.message)
     }
   }
+
+  async identify(req, res) {
+    try {
+      const { email } = req.body
+      return res.status(200).json(await UserService.identify(email))
+    } catch (error) {
+      return res.status(500).json(error.message)
+    }
+  }
   
   async resetPassword(req, res){
     try {

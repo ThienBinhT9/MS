@@ -5,6 +5,7 @@ const User = require("../models/user.model");
 
 const {
   findUserById,
+  findUserByEmail,
   getListUserByQuery,
 } = require("../models/repo/user.repo");
 const MailService = require("../services/mail.service");
@@ -75,6 +76,17 @@ class UserService {
         page,
       });
       return { code: 200, metadata: data };
+    } catch (error) {
+      return { code: 500, messge: error.message };
+    }
+  }
+
+  async identify(email) {
+    try {
+      const user = await findUserByEmail(email)
+      if(!user) return {code:404, message:"Tài khoản không tồn tại!"}
+
+      return { code:200, metadata:{ message:"Success", data:{ email } }}
     } catch (error) {
       return { code: 500, messge: error.message };
     }

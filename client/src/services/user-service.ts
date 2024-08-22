@@ -63,3 +63,22 @@ export const getInfo = async (
     dispatch(setLoading(false));
   }
 };
+
+export const identify = async (
+  body: any,
+  dispatch: Dispatch<UnknownAction>
+) => {
+  try {
+    dispatch(setLoading(true));
+    const result = await axios.post(`${HOST}/user/identify`, body);
+    if (result.data.code !== 200)
+      return toast(result?.data?.message, { type: "error" });
+
+    return result.data;
+  } catch (error) {
+    return toast(error.response?.data?.message, { type: "error" });
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+

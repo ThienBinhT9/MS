@@ -41,19 +41,11 @@ class AuthController {
     }
   }
 
-  async sendConfirmEmail(req, res) {
+  async resetPassword(req, res) {
     try {
-      const { email } = req.body;
-      return res.status(200).json(await AuthService.sendConfirmEmail(email));
-    } catch (error) {
-      return res.status(500).json(error.message);
-    }
-  }
-
-  async confirmEmail(req, res) {
-    try {
-      const { token } = req.params
-      return res.status(200).json(await AuthService.confirmEmail(token));
+      return res
+        .status(200)
+        .json(await AuthService.resetPassword(req.body));
     } catch (error) {
       return res.status(500).json(error.message);
     }

@@ -1,4 +1,4 @@
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { ITokens } from "../interfaces/common-interface";
 
 const HOST = "http://localhost:8000";
@@ -34,6 +34,26 @@ export const verifyOTP = async (
       },
     });
     return result.data;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const sendBaseOTP = async (body: any) => {
+  try {
+    const result = await axios.post(`${HOST}/mail/send-otp-v2`, body);
+    if (result.data.code === 200) return result.data;
+    return null;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const verifyBaseOTP = async (body: { token: string; otp: string }) => {
+  try {
+    const result = await axios.post(`${HOST}/mail/verify-otp-v2`, body);
+    if (result.data.code === 200) return result.data;
+    return null;
   } catch (error) {
     return null;
   }

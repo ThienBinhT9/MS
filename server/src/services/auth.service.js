@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 
 const {
   findUserById,
@@ -8,10 +9,11 @@ const {
   findUserByEmail,
 } = require("../models/repo/user.repo");
 const { createTokens, createKey } = require("../utils");
+const MailService = require("../services/mail.service");
 
 const Key = require("../models/key.model");
 const User = require("../models/user.model");
-dotenv.config()
+dotenv.config();
 class AuthService {
   async signUp({ email, password, ...fields }) {
     try {
@@ -20,7 +22,11 @@ class AuthService {
 
       const hashed_password = await bcrypt.hash(password, 10);
 
-      const new_user = await User.create({ email, password: hashed_password, ...fields });
+      const new_user = await User.create({
+        email,
+        password: hashed_password,
+        ...fields,
+      });
       if (!new_user) return { code: 400, message: "Account creation failed!" };
 
       const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
@@ -90,6 +96,28 @@ class AuthService {
       return { code: 200, metadata: "Đăng xuất thành công!" };
     } catch (error) {
       return error.message;
+    }
+  }
+
+  async resetPassword({email, otp, token, password}) {
+    try {
+      if (!token || !otp || !password)
+        return {
+          code: 400,
+          message: "Token, OTP, and new password are required.",
+        };
+
+      const result = await MailService.VerifyOTP(token, otp);
+      if (result.code !== 200) return { code: 400, message: result.message };
+
+
+      
+      return {
+        code: 200,
+        metadata: { message: "Đặt lại mật khẩu thành công!." },
+      };
+    } catch (error) {
+      return { code: 500, message: error.message };
     }
   }
 

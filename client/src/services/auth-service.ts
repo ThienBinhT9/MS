@@ -90,6 +90,25 @@ export const signOut = async (
   }
 };
 
+export const forgotPassword = async (
+  body: any,
+  navigate: NavigateFunction,
+  dispatch: Dispatch<UnknownAction>
+) => {
+  try {
+    dispatch(setLoading(true));
+    const result = await axios.post(`${HOST}/auth/reset-password`, body);
+    if (result.data.code === 200) {
+      toast(result?.data?.metadata?.message, { type: "success" });
+      return navigate("/auth/sign-in");
+    }
+  } catch (error) {
+    toast(error?.response?.data?.message, { type: "error" });
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
 export const refreshToken = async (refresh_token: string, userId: string) => {
   try {
     const result = await axios.post(`${HOST}/auth/refresh-token`, userId, {

@@ -5,7 +5,8 @@ import SignUp from "../pages/Authen/SignUp.tsx";
 import SignIn from "../pages/Authen/SignIn.tsx";
 import Profile from "../pages/Profile/index.tsx";
 import Setting from "../pages/Settings/index.tsx";
-import ForgotPassword from "../pages/Authen/ForgotPassword.tsx";
+import Identify from "../pages/Authen/Identify.tsx";
+import ResetPassword from "../pages/Authen/ResetPassword.tsx";
 
 //sub pages
 import Posts from "../pages/Profile/components/Posts/index.tsx";
@@ -24,8 +25,13 @@ export const publicRoute: IRoute[] = [
   { path: "/auth/sign-in", element: SignIn, layout: OnlyContentLayout },
   { path: "/auth/sign-up", element: SignUp, layout: OnlyContentLayout },
   {
-    path: "/auth/forgot-password",
-    element: ForgotPassword,
+    path: "/auth/identify",
+    element: Identify,
+    layout: MainLayout,
+  },
+  {
+    path: "/auth/reset-password",
+    element: ResetPassword,
     layout: OnlyContentLayout,
   },
 ];

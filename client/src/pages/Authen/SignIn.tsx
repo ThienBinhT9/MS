@@ -86,8 +86,8 @@ function SignIn() {
             )}
           />
         </div>
-        <NavLink to="/auth/forgot-password" className="auth-forgot">
-          Quên mật khẩu?
+        <NavLink to="/auth/identify" className="auth-forgot">
+          Quên tài khoản?
         </NavLink>
         <div className="auth-submits">
           <Button
