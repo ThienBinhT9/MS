@@ -19,7 +19,7 @@ class MailService {
         from: process.env.MAIL_USER,
         to: email,
         subject: `${otp} là mã xác minh của bạn`,
-        text: `Mã OTP của bạn là ${otp}. Hãy xác bằng mã này trong 120 giây!`,
+        text: `Mã OTP của bạn là ${otp}. Hãy xác nhận bằng mã này trong 120 giây!`,
       };
 
       await transporter.sendMail(mailOptions);
@@ -28,28 +28,6 @@ class MailService {
         metadata: {
           message: "Gửi mã OTP thành công!",
           data: otpToken,
-        },
-      };
-    } catch (error) {
-      return { code: 500, message: error.message };
-    }
-  }
-
-  async SendLink({ email, subject, link }) {
-    try {
-      const mailOptions = {
-        from: process.env.MAIL_USER,
-        to: email,
-        subject,
-        html: link,
-      };
-
-      await transporter.sendMail(mailOptions);
-      return {
-        code: 200,
-        metadata: {
-          message: "Gửi yêu cầu thành công!",
-          data: null,
         },
       };
     } catch (error) {

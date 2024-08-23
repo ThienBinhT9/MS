@@ -42,7 +42,7 @@ function CollapseSelect(props: Props) {
   const { isView } = usePermission("EditCollapse");
 
   const { control, handleSubmit } = useForm({
-    defaultValues: { [name]: "" },
+    defaultValues: { [name]: title || "" },
   });
 
   const [query, setQuery] = useState("");
@@ -102,6 +102,7 @@ function CollapseSelect(props: Props) {
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <Select
+                      loading
                       showSearch={search}
                       style={{ height: "max-content" }}
                       value={value}

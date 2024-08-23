@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +14,7 @@ import { TEXT_REQUIRED_INPUT } from "../../constants/validate-constants.ts";
 
 import Input from "../../components/Input/index.tsx";
 import Button from "../../components/Button/index.tsx";
+import { sendBaseOTP } from "../../services/mailer-service.ts";
 
 function ResetPassword() {
   const { search } = useLocation();
@@ -23,6 +24,8 @@ function ResetPassword() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [loadingOTP, setLoadingOTP] = useState(false);
 
   const schemaForm = Yup.object().shape({
     password: Yup.string()
@@ -44,12 +47,22 @@ function ResetPassword() {
     resolver: yupResolver(schemaForm),
   });
 
+  const handleSendOTP = async () => {
+    if (!email) return;
+    setLoadingOTP(true);
+    const resultOTP = await sendBaseOTP({ email });
+    setLoadingOTP(false);
+    if (resultOTP?.code === 200)
+      return navigate(
+        `/auth/reset-password?token=${resultOTP?.metadata?.data}&email=${email}`
+      );
+  };
+
   const handleSend = (values: IParamsResetPassword) => {
+    if (!token || !email) return;
     const { password, otp } = values;
     const body = { password, otp, token, email };
-    console.log({ body });
-
-    // forgotPassword(params?.token, body, navigate, dispatch);
+    forgotPassword(body, navigate, dispatch);
   };
 
   return (
@@ -88,7 +101,11 @@ function ResetPassword() {
                 />
               )}
             />
-            <Button style={{ height: 40, marginTop: "auto" }}>
+            <Button
+              style={{ height: 40, marginTop: "auto" }}
+              onClick={handleSendOTP}
+              loading={loadingOTP}
+            >
               Gửi lại mã
             </Button>
           </div>

@@ -99,7 +99,7 @@ class AuthService {
     }
   }
 
-  async resetPassword({email, otp, token, password}) {
+  async resetPassword({ email, otp, token, password }) {
     try {
       if (!token || !otp || !password)
         return {
@@ -110,8 +110,24 @@ class AuthService {
       const result = await MailService.VerifyOTP(token, otp);
       if (result.code !== 200) return { code: 400, message: result.message };
 
+      const user = await findUserByEmail(email);
+      if (!user) return { code: 400, message: "Tài khoản không tồn tại" };
 
-      
+      const newPassword = await bcrypt.hash(password, 10);
+      user.password = newPassword;
+      const userAfterUpdate = await User.findOneAndUpdate(
+        { email },
+        {
+          $set: { password: newPassword },
+        },
+        { new: true }
+      );
+      if (!userAfterUpdate)
+        return {
+          code: 400,
+          message: "Đổi mật khẩu không thành công. Xin thử lại lần nữa!",
+        };
+
       return {
         code: 200,
         metadata: { message: "Đặt lại mật khẩu thành công!." },

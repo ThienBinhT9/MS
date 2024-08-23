@@ -98,10 +98,11 @@ export const forgotPassword = async (
   try {
     dispatch(setLoading(true));
     const result = await axios.post(`${HOST}/auth/reset-password`, body);
-    if (result.data.code === 200) {
+    if (result?.data?.code === 200) {
       toast(result?.data?.metadata?.message, { type: "success" });
       return navigate("/auth/sign-in");
     }
+    toast(result?.data?.message, { type: "error" });
   } catch (error) {
     toast(error?.response?.data?.message, { type: "error" });
   } finally {

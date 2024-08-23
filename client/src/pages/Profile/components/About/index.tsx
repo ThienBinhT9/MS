@@ -18,7 +18,7 @@ function Overview() {
   return (
     <div className="wrapper-about-overview">
       <div className="about-section">
-        {true && (
+        {client?.currentResidence && (
           <CollapseSelect
             title={client?.currentResidence}
             subTitle="Tỉnh/Thành đang sống hiện tại"
