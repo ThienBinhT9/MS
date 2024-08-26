@@ -13,7 +13,6 @@ import CollapseSelect from "../../../../components/CollapseSelect/index.tsx";
 
 function Overview() {
   const { client } = useSelector((state: RootState) => state.user);
-  console.log({ client });
 
   return (
     <div className="wrapper-about-overview">
